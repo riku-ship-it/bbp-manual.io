@@ -1,24 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>BBP 手冊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBP 血源性病原體操作手冊</title>
     <style>
-        body { font-family: sans-serif; padding: 40px; line-height: 1.6; max-width: 800px; margin: auto; }
-        h1 { color: #c0392b; border-bottom: 3px solid #c0392b; }
-        .box { border: 1px solid #ccc; padding: 20px; border-radius: 10px; background: #f9f9f9; margin-top: 20px; }
-        button { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        :root { --danger: #c0392b; --safe: #27ae60; --dark: #2c3e50; }
+        body { font-family: "Microsoft JhengHei", sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: auto; padding: 20px; background: #f4f7f6; }
+        header { background: var(--dark); color: white; padding: 30px; text-align: center; border-radius: 8px; margin-bottom: 20px; }
+        .print-btn { background: var(--safe); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-bottom: 20px; }
+        
+        /* 摺疊面板樣式 */
+        .collapsible { background-color: white; color: var(--dark); cursor: pointer; padding: 18px; width: 100%; border: 1px solid #ddd; text-align: left; outline: none; font-size: 18px; margin-top: 10px; border-radius: 5px; font-weight: bold; display: flex; justify-content: space-between; }
+        .active, .collapsible:hover { background-color: #e8f4fd; }
+        .content { padding: 0 25px; display: none; background-color: white; border: 1px solid #ddd; border-top: none; border-radius: 0 0 5px 5px; }
+
+        .warning-box { background: #fff3f3; border-left: 5px solid var(--danger); padding: 15px; margin: 20px 0; font-weight: bold; }
+        
+        /* 列印優化 */
+        @media print {
+            .print-btn { display: none; }
+            .content { display: block !important; border: none; }
+            .collapsible { border-bottom: 2px solid #333; font-size: 20px; }
+            body { background: white; }
+        }
     </style>
 </head>
 <body>
+
+<header>
     <h1>BBP 血源性病原體操作手冊</h1>
-    <p>這是您的電子版手冊。點擊下方按鈕可直接列印成紙本。</p>
-    <button onclick="window.print()">🖨️ 點擊列印紙本</button>
-    
-    <div class="box">
-        <h3>🚨 緊急處理 SOP</h3>
-        <p>1. 立即以肥皂水沖洗傷口。</p>
-        <p>2. 報告部門主管並就醫。</p>
-    </div>
+    <p>適用於所有接觸生物性風險之工作人員</p>
+</header>
+
+<button class="print-btn" onclick="window.print()">🖨️ 點擊列印完整紙本手冊</button>
+
+<div class="warning-box">
+    🚨 注意：發生針扎或血液噴濺時，必須於 2 小時內進行醫療評估。
+</div>
+
+<button class="collapsible">第一章：通用預防措施 (Universal Precautions) <span>+</span></button>
+<div class="content">
+    <p>所有血液及特定體液均應視為具有感染性：</p>
+    <ul>
+        <li>接觸前後必須洗手。</li>
+        <li>若皮膚有傷口，必須使用防水敷料覆蓋。</li>
+        <li>禁止在可能發生暴露的區域飲食或吸菸。</li>
+    </ul>
+</div>
+
+<button class="collapsible">第二章：個人防護裝備 (PPE) 穿戴 <span>+</span></button>
+<div class="content">
+    <p>正確配戴裝備以隔絕感染源：</p>
+    <ul>
+        <li><strong>手套：</strong>接觸血液、受汙染物品或黏膜時。</li>
+        <li><strong>口罩/護目鏡：</strong>預期有血液噴濺風險時。</li>
+        <li><strong>防護衣：</strong>大面積汙染風險時。</li>
+    </ul>
+</div>
+
+<button class="collapsible">第三章：醫療廢棄物與尖銳物處理 <span>+</span></button>
+<div class="content">
+    <ul>
+        <li><strong>針頭：</strong>禁止回套！使用後立即丟入黃色硬質防穿刺桶。</li>
+        <li><strong>受汙染耗材：</strong>丟入標有生物危害標誌的紅色塑膠袋。</li>
+        <li><strong>消毒：</strong>使用 1:10 稀釋漂白水清理環境汙染處。</li>
+    </ul>
+</div>
+
+<button class="collapsible">第四章：暴露後緊急處理 SOP <span>+</span></button>
+<div class="content">
+    <p><strong>Step 1 沖洗：</strong>傷口以肥皂水沖洗；黏膜以生理食鹽水沖洗 15 分鐘。</p>
+    <p><strong>Step 2 通報：</strong>立即通知現場負責人並填寫意外報告單。</p>
+    <p><strong>Step 3 就醫：</strong>追蹤 HBV、HCV、HIV 感染狀態。</p>
+</div>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            var span = this.querySelector("span");
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                span.innerHTML = "+";
+            } else {
+                content.style.display = "block";
+                span.innerHTML = "-";
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
