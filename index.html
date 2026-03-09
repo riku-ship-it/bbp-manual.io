@@ -3,41 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BBP 操作教學手冊</title>
+    <title>BBP 操作手冊 - 組織圖篇</title>
     <style>
-        /* 💡 活潑配色與基礎設定 */
-        :root { 
-            --bbp-blue: #4A90E2; 
-            --bbp-orange: #F5A623; 
-            --bbp-light-bg: #F0F4F8; 
-            --text-main: #2C3E50;
-        }
+        :root { --main: #4A90E2; --sub: #F5A623; --bg: #F8FAFC; --dark: #1E293B; }
+        body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background: var(--bg); color: var(--dark); margin: 0; padding: 0; }
+        header { background: linear-gradient(135deg, var(--main) 0%, #2A5298 100%); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 20px 20px; }
+        .container { max-width: 950px; margin: 20px auto; padding: 20px; }
         
-        body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background: var(--bbp-light-bg); color: var(--text-main); margin: 0; padding: 0; }
-        
-        /* 頁首設計 */
-        header { background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%); color: white; padding: 50px 20px; text-align: center; clip-path: ellipse(150% 100% at 50% 0%); }
-        h1 { margin: 0; font-size: 2.5em; letter-spacing: 2px; }
-        
-        .container { max-width: 900px; margin: -30px auto 50px; padding: 20px; }
-        
-        /* 活潑的卡片設計 */
-        .card { background: white; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); padding: 30px; margin-bottom: 30px; border-bottom: 5px solid var(--bbp-blue); }
+        /* 活潑的區塊設計 */
+        .section-card { background: white; border-radius: 16px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        h2 { color: var(--main); border-left: 5px solid var(--sub); padding-left: 15px; margin-top: 0; }
 
         /* 圖片容器 */
-        .step-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
-        .img-box { border: 2px solid #EEE; border-radius: 10px; overflow: hidden; background: #FFF; position: relative; }
-        .img-box img { width: 100%; display: block; transition: 0.3s; }
-        .img-box:hover img { transform: scale(1.05); }
-        .img-label { background: var(--bbp-blue); color: white; padding: 5px 10px; font-size: 12px; position: absolute; top: 0; left: 0; border-bottom-right-radius: 10px; }
+        .img-wrap { background: #FFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px; margin: 15px 0; text-align: center; }
+        .img-wrap img { max-width: 100%; height: auto; border-radius: 5px; }
+        .img-tag { font-size: 13px; color: #64748B; margin-top: 8px; font-weight: bold; }
 
-        /* 💡 實體版列印優化 */
+        /* 三圖並列排版 (Nav A, B, C) */
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+
+        /* 四格圖排版 (Org Add) */
+        .org-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
         @media print {
-            body { background: white; }
-            .card { box-shadow: none; border: 1px solid #DDD; page-break-inside: avoid; }
-            header { background: none; color: black; padding: 20px 0; text-align: left; clip-path: none; border-bottom: 3px solid var(--bbp-blue); }
             .no-print { display: none; }
-            .step-gallery { grid-template-columns: 1fr 1fr; } /* 維持四格圖排版 */
+            .section-card { box-shadow: none; border: 1px solid #EEE; page-break-inside: avoid; }
+            body { background: white; }
+            .nav-grid, .org-grid { grid-template-columns: 1fr 1fr; } /* 列印時維持兩兩並排 */
         }
     </style>
 </head>
@@ -45,52 +37,55 @@
 
 <header>
     <h1>BBP 操作教學手冊</h1>
-    <p>Business Booster Platform — 企業數位化營運大腦 [cite: 5]</p>
+    <p>第二部分：介面導覽與組織圖設定</p>
 </header>
 
 <div class="container">
-    <section class="card">
-        <h2 style="color: var(--bbp-blue);">● 第一部分：平台概觀</h2>
-        <p>BBP 旨在串聯組織架構與執行細節，實現<span style="color:var(--bbp-orange); font-weight:bold;">數位管理</span>與<span style="color:var(--bbp-orange); font-weight:bold;">資產沉澱</span> [cite: 5, 6, 7]。</p>
-        
-        <div class="img-box" style="max-width: 500px; margin: 20px auto;">
-            <div class="img-label">核心邏輯圖 [cite: 24]</div>
-            <img src="core_logic.png" alt="BBP核心運作邏輯">
-        </div>
 
-        <h3>登入準備 [cite: 8]</h3>
-        <ul>
-            <li>網址：<a href="https://my.bbooster.io/login">my.bbooster.io/login</a> [cite: 10]</li>
-            <li>語系設定：點擊右上角 <span style="background:#EEE; padding:2px 5px;">⚙️ 設定</span> 切換至繁體中文 [cite: 16, 17, 18]。</li>
-        </ul>
-    </section>
-
-    <section class="card">
-        <h2 style="color: var(--bbp-blue);">● 第二部分：組織圖操作 — 企業的骨架 [cite: 30]</h2>
-        <p>BBP 組織圖具備動態連動能力，任何異動會即時同步至任務與週計畫 [cite: 32, 34]。</p>
-
-        <h3>1. 新增組織圖 </h3>
-        <div class="step-gallery">
-            <div class="img-box"><div class="img-label">1. 開啟建立功能</div><img src="add_org_1.png"></div>
-            <div class="img-box"><div class="img-label">2. 輸入基本資訊</div><img src="add_org_2.png"></div>
-            <div class="img-box"><div class="img-label">3. 選擇建立模式</div><img src="add_org_3.png"></div>
-            <div class="img-box"><div class="img-label">4. 即時切換版本</div><img src="add_org_4.png"></div>
-        </div>
-        <p style="font-size: 0.9em; color: #666;">※ 透過左上角下拉選單，可針對不同事業體進行規劃 [cite: 37, 43]。</p>
-
-        <h3>2. 調整職務節點 [cite: 44]</h3>
-        <p>開啟 [自訂視圖] ➔ [編輯模式] 後即可直接修改 [cite: 46, 50]。</p>
-        <ul>
-            <li><strong>新增：</strong>點擊格子旁 [+] 號 [cite: 48]。</li>
-            <li><strong>刪除：</strong>點擊 [⚙️] ➔ [刪除此功能] (僅限最下層) [cite: 49]。</li>
-        </ul>
-        <div class="img-box">
-            <div class="img-label">編輯模式示意 [cite: 50]</div>
-            <img src="org_edit_detail.png">
+    <section class="section-card">
+        <h2>2.1 介面導覽：認識您的作業環境</h2>
+        <p>系統介面分為三大核心區域，協助您快速定位功能：</p>
+        <div class="nav-grid">
+            <div class="img-wrap"><img src="nav_overview_A.png"><div class="img-tag">A. 左側選單 (導航中心)</div></div>
+            <div class="img-wrap"><img src="nav_overview_B.png"><div class="img-tag">B. 頂部工具列 (快速設定)</div></div>
+            <div class="img-wrap"><img src="nav_overview_C.png"><div class="img-tag">C. 主工作區域 (操作介面)</div></div>
         </div>
     </section>
 
-    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:20px; right:20px; background:var(--bbp-orange); color:white; border:none; padding:15px 25px; border-radius:30px; cursor:pointer; font-weight:bold; box-shadow:0 5px 15px rgba(0,0,0,0.2);">🖨️ 下載/列印手冊</button>
+    <section class="section-card">
+        <h2>2.2 組織圖模組：定義職務與責任</h2>
+        <p>組織圖是 BBP 的靈魂，決定了資訊的流向。以下是功能總覽圖：</p>
+        <div class="img-wrap">
+            <img src="org_summary.png" alt="組織圖功能總覽">
+            <div class="img-tag">圖：組織圖模組功能地圖</div>
+        </div>
+    </section>
+
+    <section class="section-card">
+        <h2>2.3 如何新增與管理組織圖</h2>
+        <p>點擊左側選單進入「組織圖」，透過以下四個步驟完成基礎設定：</p>
+        <div class="org-grid">
+            <div class="img-wrap"><img src="add_org_1.png"><div class="img-tag">1. 開啟建立功能</div></div>
+            <div class="img-wrap"><img src="add_org_2.png"><div class="img-tag">2. 輸入基本資訊</div></div>
+            <div class="img-wrap"><img src="add_org_3.png"><div class="img-tag">3. 選擇建立模式</div></div>
+            <div class="img-wrap"><img src="add_org_4.png"><div class="img-tag">4. 即時切換版本</div></div>
+        </div>
+    </section>
+
+    <section class="section-card">
+        <h2>2.4 編輯模式：調整職務節點</h2>
+        <p>點擊右上角 <span style="color:var(--sub); font-weight:bold;">[自訂視圖]</span> ➔ 開啟 <span style="color:var(--sub); font-weight:bold;">[編輯模式]</span> 即可進行調整。</p>
+        <ul>
+            <li><strong>新增：</strong> 點擊職務格子旁的 [+] 號。</li>
+            <li><strong>設定與刪除：</strong> 點擊 [⚙️] 圖示進行內容修改或職務移除。</li>
+        </ul>
+        <div class="img-wrap">
+            <img src="org_edit_mode.png" alt="編輯模式示意圖">
+            <div class="img-tag">圖：開啟編輯模式與功能細節</div>
+        </div>
+    </section>
+
+    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:20px; right:20px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; cursor:pointer; font-weight:bold; box-shadow:0 4px 15px rgba(0,0,0,0.3);">🖨️ 列印/轉存 PDF</button>
 </div>
 
 </body>
