@@ -3,33 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BBP 操作手冊 - 組織圖篇</title>
+    <title>BBP 操作教學手冊</title>
     <style>
-        :root { --main: #4A90E2; --sub: #F5A623; --bg: #F8FAFC; --dark: #1E293B; }
-        body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background: var(--bg); color: var(--dark); margin: 0; padding: 0; }
-        header { background: linear-gradient(135deg, var(--main) 0%, #2A5298 100%); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 20px 20px; }
-        .container { max-width: 950px; margin: 20px auto; padding: 20px; }
+        :root { --main-blue: #4a6cf7; --accent-orange: #ff9800; --bg-gray: #fcfdfe; --text-dark: #2d3436; }
+        body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; line-height: 1.8; color: var(--text-dark); background: var(--bg-gray); margin: 0; padding: 0; }
         
-        /* 活潑的區塊設計 */
-        .section-card { background: white; border-radius: 16px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        h2 { color: var(--main); border-left: 5px solid var(--sub); padding-left: 15px; margin-top: 0; }
-
+        /* 頁首活潑設計 */
+        header { background: linear-gradient(120deg, var(--main-blue), #6a85f1); color: white; padding: 60px 20px; text-align: center; border-radius: 0 0 50px 50px; box-shadow: 0 10px 30px rgba(74,108,247,0.2); }
+        .container { max-width: 900px; margin: -40px auto 60px; padding: 0 20px; }
+        
+        /* 卡片設計 */
+        .card { background: white; border-radius: 20px; padding: 35px; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
+        .section-title { color: var(--main-blue); border-bottom: 3px solid var(--accent-orange); display: inline-block; margin-bottom: 20px; padding-bottom: 5px; }
+        
         /* 圖片容器 */
-        .img-wrap { background: #FFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px; margin: 15px 0; text-align: center; }
-        .img-wrap img { max-width: 100%; height: auto; border-radius: 5px; }
-        .img-tag { font-size: 13px; color: #64748B; margin-top: 8px; font-weight: bold; }
+        .img-box { text-align: center; margin: 25px 0; background: #fff; padding: 10px; border-radius: 12px; }
+        .img-box img { max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #eee; transition: 0.3s; }
+        .img-box:hover img { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .img-label { font-size: 14px; color: #7f8c8d; margin-top: 10px; font-weight: bold; }
 
-        /* 三圖並列排版 (Nav A, B, C) */
-        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        /* 介面導覽 A,B,C 排版 */
+        .nav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
 
-        /* 四格圖排版 (Org Add) */
-        .org-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        /* 組織圖四步排版 */
+        .org-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px; }
 
+        /* 列印優化 */
         @media print {
+            header { background: none; color: black; border-bottom: 3px solid var(--main-blue); border-radius: 0; padding: 20px 0; }
+            .card { box-shadow: none; border: none; padding: 20px 0; page-break-inside: avoid; }
+            .container { margin-top: 0; }
             .no-print { display: none; }
-            .section-card { box-shadow: none; border: 1px solid #EEE; page-break-inside: avoid; }
-            body { background: white; }
-            .nav-grid, .org-grid { grid-template-columns: 1fr 1fr; } /* 列印時維持兩兩並排 */
+            .nav-grid, .org-steps { grid-template-columns: 1fr 1fr; }
+            .img-box img { border: 1px solid #000; }
         }
     </style>
 </head>
@@ -37,55 +43,79 @@
 
 <header>
     <h1>BBP 操作教學手冊</h1>
-    <p>第二部分：介面導覽與組織圖設定</p>
+    <p>Business Booster Platform — 讓數位管理成為企業成長的引擎</p>
 </header>
 
 <div class="container">
-
-    <section class="section-card">
-        <h2>2.1 介面導覽：認識您的作業環境</h2>
-        <p>系統介面分為三大核心區域，協助您快速定位功能：</p>
-        <div class="nav-grid">
-            <div class="img-wrap"><img src="nav_overview_A.png"><div class="img-tag">A. 左側選單 (導航中心)</div></div>
-            <div class="img-wrap"><img src="nav_overview_B.png"><div class="img-tag">B. 頂部工具列 (快速設定)</div></div>
-            <div class="img-wrap"><img src="nav_overview_C.png"><div class="img-tag">C. 主工作區域 (操作介面)</div></div>
-        </div>
-    </section>
-
-    <section class="section-card">
-        <h2>2.2 組織圖模組：定義職務與責任</h2>
-        <p>組織圖是 BBP 的靈魂，決定了資訊的流向。以下是功能總覽圖：</p>
-        <div class="img-wrap">
-            <img src="org_summary.png" alt="組織圖功能總覽">
-            <div class="img-tag">圖：組織圖模組功能地圖</div>
-        </div>
-    </section>
-
-    <section class="section-card">
-        <h2>2.3 如何新增與管理組織圖</h2>
-        <p>點擊左側選單進入「組織圖」，透過以下四個步驟完成基礎設定：</p>
-        <div class="org-grid">
-            <div class="img-wrap"><img src="add_org_1.png"><div class="img-tag">1. 開啟建立功能</div></div>
-            <div class="img-wrap"><img src="add_org_2.png"><div class="img-tag">2. 輸入基本資訊</div></div>
-            <div class="img-wrap"><img src="add_org_3.png"><div class="img-tag">3. 選擇建立模式</div></div>
-            <div class="img-wrap"><img src="add_org_4.png"><div class="img-tag">4. 即時切換版本</div></div>
-        </div>
-    </section>
-
-    <section class="section-card">
-        <h2>2.4 編輯模式：調整職務節點</h2>
-        <p>點擊右上角 <span style="color:var(--sub); font-weight:bold;">[自訂視圖]</span> ➔ 開啟 <span style="color:var(--sub); font-weight:bold;">[編輯模式]</span> 即可進行調整。</p>
+    
+    <section class="card">
+        <h2 class="section-title">第一部分：平台概觀與核心價值</h2>
+        <p>BBP 是企業數位化營運的「大腦」，旨在串聯組織架構與執行細節 [cite: 5]。</p>
         <ul>
-            <li><strong>新增：</strong> 點擊職務格子旁的 [+] 號。</li>
-            <li><strong>設定與刪除：</strong> 點擊 [⚙️] 圖示進行內容修改或職務移除。</li>
+            <li><strong>數位管理：</strong> 提升執行效率 [cite: 6]。</li>
+            <li><strong>資產沉澱：</strong> 確保 SOP 完整留存 [cite: 7]。</li>
         </ul>
-        <div class="img-wrap">
-            <img src="org_edit_mode.png" alt="編輯模式示意圖">
-            <div class="img-tag">圖：開啟編輯模式與功能細節</div>
+
+        <h3>■ 登入準備</h3>
+        <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a> [cite: 10]</p>
+        <div class="img-box">
+            <img src="login_screen.png" alt="BBP 登入畫面">
+            <div class="img-label">圖 1.1：BBP 登入授權介面</div>
+        </div>
+
+        <h3>■ 介面語言設定</h3>
+        <p>1. 點擊右上角 [⚙️ 設定] ➔ 2. 尋找 [Language / 語言] ➔ 3. 選擇 [繁體中文] [cite: 16, 17, 18]。</p>
+        <div class="img-box">
+            <img src="lang_setting.png" alt="語言設定步驟">
         </div>
     </section>
 
-    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:20px; right:20px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; cursor:pointer; font-weight:bold; box-shadow:0 4px 15px rgba(0,0,0,0.3);">🖨️ 列印/轉存 PDF</button>
+    <section class="card">
+        <h2 class="section-title">核心運作邏輯</h2>
+        <p>BBP 依序由四個模組，形成管理循環 [cite: 20]：</p>
+        <div class="img-box">
+            <img src="intro_1.png" alt="核心邏輯圖">
+            <div class="img-label">組織圖 ➔ 任務 ➔ 知識庫 ➔ 儀表板 [cite: 21, 22, 23, 24]</div>
+        </div>
+        
+        <h3>■ 介面快速導覽</h3>
+        <div class="nav-grid">
+            <div class="img-box"><img src="nav_overview_A.png"><div class="img-label">A. 左側功能選單 [cite: 26]</div></div>
+            <div class="img-box"><img src="nav_overview_B.png"><div class="img-label">B. 頂部工具列 [cite: 27]</div></div>
+            <div class="img-box"><img src="nav_overview_C.png"><div class="img-label">C. 主工作區域 [cite: 28]</div></div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2 class="section-title">第二部分：2.1 組織圖 — 企業的骨架</h2>
+        <p>具備動態連動能力的雲端架構，確保全公司資訊一致 [cite: 32, 34]。</p>
+        
+        <div class="img-box">
+            <img src="org_summary.png" alt="組織圖功能總覽">
+            <div class="img-label">圖 2.1：組織圖模組功能地圖 [cite: 35]</div>
+        </div>
+
+        <h3>■ 新增組織圖步驟</h3>
+        <div class="org-steps">
+            <div class="img-box"><img src="org_add_4in1.png"></div>
+            <div>
+                <ol>
+                    <li>開啟：左上角【下拉選單】 ➔ 【+ 建立組織圖】 [cite: 38]。</li>
+                    <li>資訊：設定名稱與說明，點擊【建立】 [cite: 39]。</li>
+                    <li>模式：選擇「從頭開始」或「經典版」 [cite: 41, 42]。</li>
+                </ol>
+            </div>
+        </div>
+
+        <h3>■ 調整與編輯模式</h3>
+        <p>開啟 [自訂視圖] ➔ [編輯模式] 後，可直覺調整架構 [cite: 46]。 <span style="color:red; font-weight:bold;">※防呆機制：僅支援從最下層刪除 。</span></p>
+        <div class="img-box">
+            <img src="org_edit_mode.png" alt="編輯與節點操作">
+            <div class="img-label">圖 2.2：增減職務節點與功能配置 [cite: 48, 51]</div>
+        </div>
+    </section>
+
+    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--accent-orange); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 5px 20px rgba(0,0,0,0.2);">🖨️ 下載 PDF / 列印紙本</button>
 </div>
 
 </body>
