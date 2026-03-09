@@ -5,31 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BBP 操作教學手冊</title>
     <style>
-        :root { --main: #4a6cf7; --sub: #ff9800; --bg: #fcfdfe; --sidebar-w: 250px; }
+        :root { --main: #4a6cf7; --sub: #ff9800; --bg: #fcfdfe; --sidebar-w: 240px; }
         body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; margin: 0; background: var(--bg); display: flex; }
         
         /* 側邊導覽選單 */
-        .sidebar { width: var(--sidebar-w); background: #1e293b; height: 100vh; position: fixed; color: white; padding: 20px; box-sizing: border-box; overflow-y: auto; }
-        .sidebar h3 { font-size: 18px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
-        .sidebar a { display: block; color: #cbd5e1; text-decoration: none; padding: 12px 10px; border-radius: 5px; margin: 5px 0; transition: 0.3s; font-size: 14px; }
+        .sidebar { width: var(--sidebar-w); background: #1e293b; height: 100vh; position: fixed; color: white; padding: 20px; box-sizing: border-box; overflow-y: auto; z-index: 100; }
+        .sidebar h3 { font-size: 18px; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 20px; }
+        .sidebar a { display: block; color: #cbd5e1; text-decoration: none; padding: 12px 10px; border-radius: 8px; margin: 5px 0; transition: 0.3s; font-size: 14px; }
         .sidebar a:hover { background: var(--main); color: white; }
 
         /* 主內容區域 */
-        .main-content { margin-left: var(--sidebar-w); flex: 1; padding: 40px; box-sizing: border-box; }
-        header { background: linear-gradient(120deg, var(--main), #6a85f1); color: white; padding: 50px; border-radius: 20px; text-align: center; margin-bottom: 40px; }
-        .card { background: white; border-radius: 20px; padding: 40px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .main-content { margin-left: var(--sidebar-w); flex: 1; padding: 40px; box-sizing: border-box; scroll-behavior: smooth; }
+        header { background: linear-gradient(120deg, var(--main), #6a85f1); color: white; padding: 60px; border-radius: 24px; text-align: center; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(74,108,247,0.2); }
+        .card { background: white; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        h2 { color: var(--main); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
 
-        /* 圖片放大互動 (燈箱效果) */
-        .img-box { text-align: center; margin: 25px 0; cursor: zoom-in; }
-        .img-box img { max-width: 100%; border-radius: 12px; border: 1px solid #eee; transition: 0.3s; }
-        .img-box:hover img { box-shadow: 0 10px 20px rgba(74,108,247,0.2); }
+        /* 圖片燈箱效果 */
+        .img-box { text-align: center; margin: 30px 0; cursor: zoom-in; }
+        .img-box img { max-width: 100%; border-radius: 12px; border: 1px solid #eee; transition: 0.4s; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .img-box:hover img { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(74,108,247,0.15); }
+        .img-tip { font-size: 12px; color: #aaa; margin-top: 10px; }
         
-        /* 點擊放大後的滿版層 */
-        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
-        #lightbox img { max-width: 90%; max-height: 90%; border: 2px solid white; }
+        /* 燈箱全螢幕層 */
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; }
+        #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid white; border-radius: 4px; }
 
-        .nav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .org-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        /* 欄位排版 */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 
         @media print {
             .sidebar, .no-print { display: none; }
@@ -41,13 +44,13 @@
 <body>
 
 <nav class="sidebar">
-    <h3>BBP 手冊導覽</h3>
-    <a href="#intro">1.1 平台定義與理念</a>
+    <h3>📖 快速導覽</h3>
+    <a href="#intro">1.1 平台概觀</a>
     <a href="#login">1.2 登入準備</a>
-    <a href="#lang">1.3 介面語言設定</a>
-    <a href="#logic">1.4 核心運作邏輯</a>
-    <a href="#nav">1.5 介面快速導覽</a>
-    <a href="#org-module">2.1 組織圖模組總覽</a>
+    <a href="#lang">1.3 語言設定</a>
+    <a href="#logic">1.4 運作邏輯</a>
+    <a href="#nav">1.5 介面導覽</a>
+    <a href="#org-module">2.1 組織圖總覽</a>
     <a href="#org-add">2.2 新增組織圖</a>
     <a href="#org-edit">2.3 調整組織圖</a>
 </nav>
@@ -55,68 +58,69 @@
 <div class="main-content">
     <header>
         <h1>BBP 操作教學手冊</h1>
-        <p>數位化營運大腦 — 串聯組織架構與執行細節</p>
+        <p>Business Booster Platform — 企業數位化營運大腦</p>
     </header>
 
     <section id="intro" class="card">
-        <h2 style="color:var(--main)">第一部分：平台概觀</h2>
-        <p>BBP (Business Booster Platform) 是企業數位化營運的「大腦」，旨在串聯組織架構與執行細節 [cite: 4, 5]。</p>
+        <h2>第一部分：平台概觀</h2>
+        <p>BBP 是企業數位化營運的「大腦」，旨在串聯組織架構與執行細節 [cite: 5]。</p>
         <ul>
-            <li><strong>數位管理：</strong> 透過系統落實管理邏輯，提升執行效率 [cite: 6]。</li>
-            <li><strong>資產沉澱：</strong> 確保 SOP 完整留存，不隨人員流動流失 [cite: 7]。</li>
+            <li><strong>數位管理：</strong> 提升執行效率 [cite: 6]。</li>
+            <li><strong>資產沉澱：</strong> 確保 SOP 完整留存 [cite: 7]。</li>
         </ul>
     </section>
 
     <section id="login" class="card">
         <h3>■ 登入準備</h3>
         <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a> [cite: 10]</p>
-        <div class="img-box" onclick="zoomImg(this)">
+        <div class="img-box" onclick="openZoom(this)">
             <img src="login_1.png" alt="登入畫面">
-            <p style="font-size:12px; color:#999">點擊圖片可放大查看</p>
+            <p class="img-tip">🔍 點擊圖片可放大</p>
         </div>
     </section>
 
     <section id="lang" class="card">
         <h3>■ 介面語言設定</h3>
-        <p>1. 點擊右上角 [⚙️ 設定] ➔ 2. 尋找 [Language / 語言] ➔ 3. 選擇 [繁體中文] [cite: 16, 17, 18]。</p>
-        <div class="img-box" onclick="zoomImg(this)">
+        <p>1. 點擊右上角 [⚙️ 設定] ➔ 2. 選擇 [Language / 語言] ➔ 3. 選擇 [繁體中文] [cite: 16, 17, 18]。</p>
+        <div class="img-box" onclick="openZoom(this)">
             <img src="lang_setting.png" alt="語言設定">
         </div>
     </section>
 
     <section id="logic" class="card">
         <h3>■ 核心運作邏輯</h3>
-        <p>平台由四個模組形成循環：組織圖 ➔ 任務 ➔ 知識庫 ➔ 儀表板 [cite: 19, 20]。</p>
-        <div class="img-box" onclick="zoomImg(this)">
-            <img src="intro_1.png" alt="核心邏輯">
+        <p>平台循環：組織圖 ➔ 任務 ➔ 知識庫 ➔ 儀表板 [cite: 21, 22, 23, 24]。</p>
+        <div class="img-box" onclick="openZoom(this)">
+            <img src="intro_1.png" alt="運作邏輯圖">
         </div>
     </section>
 
     <section id="nav" class="card">
         <h3>■ 介面快速導覽</h3>
-        <div class="nav-grid">
-            <div class="img-box" onclick="zoomImg(this)"><img src="nav_overview_A.png"><p>A. 左側選單</p></div>
-            <div class="img-box" onclick="zoomImg(this)"><img src="nav_overview_B.png"><p>B. 頂部工具列</p></div>
-            <div class="img-box" onclick="zoomImg(this)"><img src="nav_overview_C.png"><p>C. 主工作區域</p></div>
+        <div class="grid-3">
+            <div class="img-box" onclick="openZoom(this)"><img src="nav_overview_A.png"><p>A. 左側選單</p></div>
+            <div class="img-box" onclick="openZoom(this)"><img src="nav_overview_B.png"><p>B. 頂部工具列</p></div>
+            <div class="img-box" onclick="openZoom(this)"><img src="nav_overview_C.png"><p>C. 主工作區域</p></div>
         </div>
     </section>
 
     <section id="org-module" class="card">
-        <h2 style="color:var(--main)">第二部分：組織圖詳解</h2>
-        <div class="img-box" onclick="zoomImg(this)">
+        <h2>第二部分：核心模組詳解</h2>
+        <p>BBP 組織圖具備動態連動能力，確保全公司資訊一致 [cite: 32, 34]。</p>
+        <div class="img-box" onclick="openZoom(this)">
             <img src="org_summary.png" alt="功能總覽">
         </div>
     </section>
 
     <section id="org-add" class="card">
         <h3>■ 新增組織圖</h3>
-        <div class="org-steps">
-            <div class="img-box" onclick="zoomImg(this)"><img src="org_add_4in1.png"></div>
+        <div class="grid-2">
+            <div class="img-box" onclick="openZoom(this)"><img src="org_add_4in1.png"></div>
             <div>
                 <ol>
-                    <li>開啟：左上角【下拉選單】➔【+ 建立組織圖】 [cite: 38]。</li>
-                    <li>資訊：設定名稱與說明，點擊【建立】 [cite: 39]。</li>
-                    <li>模式：選擇「從頭開始」或「經典版」 [cite: 41, 42]。</li>
+                    <li>點擊左上角【下拉選單】➔【+ 建立組織圖】 [cite: 38]。</li>
+                    <li>設定【名稱】與【說明】，點擊【建立】 [cite: 39]。</li>
+                    <li>選擇「從頭開始」或「經典版」模式 [cite: 41, 42]。</li>
                 </ol>
             </div>
         </div>
@@ -124,32 +128,33 @@
 
     <section id="org-edit" class="card">
         <h3>■ 調整組織圖</h3>
-        <p>開啟 [自訂視圖] ➔ [編輯模式] 後，可直覺調整架構 [cite: 46]。 <span style="color:red; font-weight:bold;">※僅支援從最下層刪除</span> [cite: 49]。</p>
-        <div class="img-box" onclick="zoomImg(this)">
-            <img src="org_edit_mode.png" alt="編輯模式">
+        <p>開啟【編輯模式】即可直接增減職務節點 [cite: 46, 48]。 <span style="color:red; font-weight:bold;">※防呆機制：僅支援從最下層刪除 [cite: 49]。</span></p>
+        <div class="img-box" onclick="openZoom(this)">
+            <img src="org_edit_mode.png" alt="編輯操作">
         </div>
     </section>
 
-    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 5px 20px rgba(0,0,0,0.2);">🖨️ 列印 / 存 PDF</button>
+    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">🖨️ 列印 / 轉 PDF</button>
 </div>
 
 <div id="lightbox" onclick="this.style.display='none'">
-    <img id="lightbox-img">
+    <img id="zoom-img">
 </div>
 
 <script>
-    // 側邊選單平滑捲動
-    document.querySelectorAll('.sidebar a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+    // 側邊導覽平滑捲動
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            const target = document.querySelector(this.getAttribute('href'));
+            target.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
     // 圖片放大功能
-    function zoomImg(el) {
-        const src = el.querySelector('img').src;
-        document.getElementById('lightbox-img').src = src;
+    function openZoom(el) {
+        const img = el.querySelector('img');
+        document.getElementById('zoom-img').src = img.src;
         document.getElementById('lightbox').style.display = 'flex';
     }
 </script>
