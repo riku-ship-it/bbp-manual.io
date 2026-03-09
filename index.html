@@ -21,7 +21,7 @@
         h2 { color: var(--main); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
         h3 { color: #334155; margin-top: 30px; border-left: 4px solid var(--sub); padding-left: 10px; }
 
-        /* 滿版圖片容器 */
+        /* 滿版圖片容器 (統一規格) */
         .full-img-box { text-align: center; margin: 30px 0; cursor: zoom-in; }
         .full-img-box img { width: 100%; max-width: 850px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.4s; }
         .full-img-box:hover img { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(74,108,247,0.15); }
@@ -30,7 +30,11 @@
         #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; }
         #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid white; border-radius: 4px; }
 
+        /* 三格排版 (僅用於介面導覽) */
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+        /* 提醒方塊樣式 */
+        .tip-box { background: #f0f4ff; padding: 18px; border-radius: 10px; border-left: 5px solid var(--main); margin: 20px 0; font-size: 15px; line-height: 1.6; }
 
         @media print {
             .sidebar, .no-print { display: none; }
@@ -62,20 +66,20 @@
     <section id="intro" class="card">
         <h2>第一部分：平台概觀與核心價值</h2>
         <h3>■ BBP 定義與理念</h3>
-        <p>BBP (Business Booster Platform) 是企業數位化營運的「大腦」，旨在串聯組織架構與執行細節 [cite: 5]。</p>
+        <p>BBP (Business Booster Platform) 是企業數位化營運的「大腦」，旨在串聯組織架構與執行細節。</p>
         <ul>
-            <li><strong>數位管理：</strong> 透過系統落實管理邏輯，提升執行效率 [cite: 6]。</li>
-            <li><strong>資產沉澱：</strong> 確保企業經驗與 SOP 完整留存，不隨人員流動流失 [cite: 7]。</li>
+            <li><strong>數位管理：</strong> 透過系統落實管理邏輯，提升執行效率。</li>
+            <li><strong>資產沉澱：</strong> 確保企業經驗與 SOP 完整留存，不隨人員流動流失。</li>
         </ul>
     </section>
 
     <section id="login" class="card">
         <h3>■ 登入準備與環境建議</h3>
-        <p>為了確保最佳的操作體驗，請於開始前確認以下資訊 [cite: 9]：</p>
+        <p>為了確保最佳的操作體驗，請於開始前確認以下資訊：</p>
         <ul>
-            <li><strong>登入網址：</strong> <a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a> [cite: 10]</li>
-            <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入 [cite: 11]。</li>
-            <li><strong>安全提示：</strong> 首次登入後，建議立即於「個人設定」修改初始密碼 [cite: 12]。</li>
+            <li><strong>登入網址：</strong> <a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></li>
+            <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入。</li>
+            <li><strong>安全提示：</strong> 首次登入後，建議立即於「個人設定」修改初始密碼。</li>
         </ul>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="login_1.png" alt="登入畫面">
@@ -85,7 +89,12 @@
 
     <section id="lang" class="card">
         <h3>■ 介面語言設定</h3>
-        <p>1. 點擊右上角 [⚙️ 設定] ➔ 2. 尋找 [Language / 語言] ➔ 3. 選擇 [繁體中文] 即可即時切換 [cite: 16, 17, 18]。</p>
+        <p>BBP 預設會根據系統環境自動切換。若需手動調整語系，操作步驟如下：</p>
+        <ol>
+            <li>點擊畫面右上角的 [⚙️ 設定]。</li>
+            <li>尋找 [Language / 語言] 欄位。</li>
+            <li>於選單中選擇 [繁體中文] 即可即時切換。</li>
+        </ol>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="lang_setting.png" alt="語言設定步驟">
         </div>
@@ -93,7 +102,7 @@
 
     <section id="logic" class="card">
         <h3>■ 核心運作邏輯</h3>
-        <p>平台依序由四個模組，形成管理循環：組織圖 ➔ 任務 ➔ 知識庫 ➔ 儀表板 [cite: 20]。</p>
+        <p>平台依序由四個模組，形成管理循環：組織圖 ➔ 任務 ➔ 知識庫 ➔ 儀表板。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="intro_1.png" alt="運作邏輯循環圖">
         </div>
@@ -102,16 +111,16 @@
     <section id="nav" class="card">
         <h3>■ 介面快速導覽</h3>
         <div class="grid-3">
-            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_A.png"><p style="font-size:14px;">左側選單 [cite: 26]</p></div>
-            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_B.png"><p style="font-size:14px;">頂部工具列 [cite: 27]</p></div>
-            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_C.png"><p style="font-size:14px;">主工作區域 [cite: 28]</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_A.png"><p style="font-size:14px;">左側選單</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_B.png"><p style="font-size:14px;">頂部工具列</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_C.png"><p style="font-size:14px;">主工作區域</p></div>
         </div>
     </section>
 
     <section id="org-module" class="card">
         <h2>第二部分：核心模組詳解</h2>
         <h3>2.1 組織圖 — 企業的骨架</h3>
-        <p>BBP 組織圖具備動態連動能力，是一套具備即時同步能力的雲端架構 [cite: 32]。</p>
+        <p>BBP 組織圖具備動態連動能力，是一套具備即時同步能力的雲端架構。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_summary.png" alt="組織圖功能總覽">
         </div>
@@ -119,29 +128,29 @@
 
     <section id="org-add" class="card">
         <h3>■ 新增組織圖</h3>
-        <p>當企業需要針對不同事業體或新的組織架構進行規劃時，可透過此流程建立新版本 [cite: 37]。</p>
+        <p>當企業需要針對不同事業體或新的組織架構進行規劃時，可透過此流程建立新版本。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_add_4in1.png" alt="新增組織圖四步驟">
         </div>
-        <p style="background: #f0f4ff; padding: 15px; border-radius: 8px; border-left: 5px solid var(--main);">
-            <strong>操作要點：</strong> 點擊頁面左上角【下拉選單】 ➔ 選擇【+ 建立組織圖】 [cite: 38] ➔ 輸入【名稱】與【說明】 ➔ 選擇「從頭開始」或「經典版」模式 [cite: 39, 40] ➔ 建立後可即時切換版本 。
-        </p>
+        <div class="tip-box">
+            <strong>操作流程：</strong> 點擊左上角【下拉選單】 ➔ 【+ 建立組織圖】 ➔ 輸入【名稱】與【說明】 ➔ 選擇建立模式（從頭開始或經典版）。
+        </div>
     </section>
 
     <section id="org-edit" class="card">
         <h3>■ 調整組織圖</h3>
-        <p>開啟【編輯模式】開關，即可直覺地調整企業架構 [cite: 46]。</p>
+        <p>開啟【編輯模式】開關，即可直覺地調整企業架構。BBP 採用「即時自動儲存」機制。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_edit_mode.png" alt="編輯操作示意">
         </div>
         <ul>
-            <li><strong>新增：</strong> 點擊職務格子下方或右側的【+】號 [cite: 48]。</li>
-            <li><strong>刪除：</strong> 點擊格子右上角【⚙️】➔【刪除此功能】 [cite: 49]。</li>
-            <li><span style="color:red; font-weight:bold;">※ 系統防呆機制：僅支援從最下層職務開始刪除 [cite: 49]。</span></li>
+            <li><strong>新增：</strong> 點擊職務格子下方或右側的【+】號，即可長出下層或同層職務。</li>
+            <li><strong>刪除：</strong> 點擊格子右上角【⚙️】➔【刪除此功能】。</li>
+            <li><span style="color:red; font-weight:bold;">※ 系統防呆機制：僅支援從最下層職務開始刪除。</span></li>
         </ul>
     </section>
 
-    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">🖨️ 列印 / 轉存 PDF</button>
+    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">🖨️ 下載 PDF / 列印紙本</button>
 </div>
 
 <div id="lightbox" onclick="this.style.display='none'">
@@ -158,7 +167,7 @@
         });
     });
 
-    // 圖片放大
+    // 圖片放大功能
     function openZoom(el) {
         const img = el.querySelector('img');
         document.getElementById('zoom-img').src = img.src;
