@@ -21,25 +21,31 @@
         h2 { color: var(--main); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
         h3 { color: #334155; margin-top: 30px; border-left: 4px solid var(--sub); padding-left: 10px; }
 
-        /* 滿版圖片容器 (統一規格) */
-        .full-img-box { text-align: center; margin: 30px 0; cursor: zoom-in; }
-        .full-img-box img { width: 100%; max-width: 850px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.4s; }
+        /* 滿版圖片與影片容器 */
+        .full-img-box, .video-container { text-align: center; margin: 30px 0; }
+        .full-img-box img, .video-container video { width: 100%; max-width: 850px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .full-img-box img { cursor: zoom-in; transition: 0.4s; }
         .full-img-box:hover img { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(74,108,247,0.15); }
         
-        /* 燈箱全螢幕層 */
+        /* 燈箱效果 */
         #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; }
         #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid white; border-radius: 4px; }
 
-        /* 三格排版 (僅用於介面導覽) */
+        /* 三格排版 */
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
-        /* 提醒方塊樣式 */
+        /* 提醒方塊 */
         .tip-box { background: #f0f4ff; padding: 18px; border-radius: 10px; border-left: 5px solid var(--main); margin: 20px 0; font-size: 15px; line-height: 1.6; }
 
+        /* 列印專用 QR Code 區塊 (預設隱藏) */
+        .print-qr { display: none; text-align: center; border: 2px dashed #ccc; padding: 25px; border-radius: 15px; margin: 30px 0; }
+        .print-qr img { width: 140px; height: 140px; margin-bottom: 10px; }
+
         @media print {
-            .sidebar, .no-print { display: none; }
+            .sidebar, .no-print, .video-container { display: none !important; }
             .main-content { margin-left: 0; padding: 0; }
             .card { box-shadow: none; border: none; page-break-inside: avoid; }
+            .print-qr { display: block; } /* 列印時顯示 QR Code */
         }
     </style>
 </head>
@@ -69,18 +75,13 @@
         <p>BBP (Business Booster Platform) 是企業數位化營運的「大腦」，旨在串聯組織架構與執行細節。</p>
         <ul>
             <li><strong>數位管理：</strong> 透過系統落實管理邏輯，提升執行效率。</li>
-            <li><strong>資產沉澱：</strong> 確保企業經驗與 SOP 完整留存，不隨人員流動流失。</li>
+            <li><strong>資產沉澱：</strong> 確保企業經驗與 SOP 完整留存。</li>
         </ul>
     </section>
 
     <section id="login" class="card">
         <h3>■ 登入準備與環境建議</h3>
-        <p>為了確保最佳的操作體驗，請於開始前確認以下資訊：</p>
-        <ul>
-            <li><strong>登入網址：</strong> <a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></li>
-            <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入。</li>
-            <li><strong>安全提示：</strong> 首次登入後，建議立即於「個人設定」修改初始密碼。</li>
-        </ul>
+        <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="login_1.png" alt="登入畫面">
             <p style="font-size:12px; color:#aaa; margin-top:10px;">🔍 點擊圖片可放大查看</p>
@@ -89,12 +90,7 @@
 
     <section id="lang" class="card">
         <h3>■ 介面語言設定</h3>
-        <p>BBP 預設會根據系統環境自動切換。若需手動調整語系，操作步驟如下：</p>
-        <ol>
-            <li>點擊畫面右上角的 [⚙️ 設定]。</li>
-            <li>尋找 [Language / 語言] 欄位。</li>
-            <li>於選單中選擇 [繁體中文] 即可即時切換。</li>
-        </ol>
+        <p>1. 點擊右上角 [⚙️ 設定] ➔ 2. 選擇 [Language / 語言] ➔ 3. 選擇 [繁體中文]。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="lang_setting.png" alt="語言設定步驟">
         </div>
@@ -120,7 +116,6 @@
     <section id="org-module" class="card">
         <h2>第二部分：核心模組詳解</h2>
         <h3>2.1 組織圖 — 企業的骨架</h3>
-        <p>BBP 組織圖具備動態連動能力，是一套具備即時同步能力的雲端架構。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_summary.png" alt="組織圖功能總覽">
         </div>
@@ -128,23 +123,36 @@
 
     <section id="org-add" class="card">
         <h3>■ 新增組織圖</h3>
-        <p>當企業需要針對不同事業體或新的組織架構進行規劃時，可透過此流程建立新版本。</p>
+        <p>當企業需要建立新版本架構時，請參考下方影片或圖解操作：</p>
+        
+        <div class="video-container">
+            <video width="100%" controls poster="org_add_4in1.png">
+                <source src="org_tutorial.mp4" type="video/mp4">
+                您的瀏覽器不支持影片播放。
+            </video>
+            <p style="font-size:12px; color:#666; margin-top:10px;">▶️ 點擊播放「新增組織圖」動態教學</p>
+        </div>
+
+        <div class="print-qr">
+            <img src="qr_org_video.png" alt="掃描看影片">
+            <p><strong>🎥 掃描上方 QR Code 觀看「新增組織圖」動態教學影片</strong></p>
+        </div>
+
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_add_4in1.png" alt="新增組織圖四步驟">
         </div>
         <div class="tip-box">
-            <strong>操作流程：</strong> 點擊左上角【下拉選單】 ➔ 【+ 建立組織圖】 ➔ 輸入【名稱】與【說明】 ➔ 選擇建立模式（從頭開始或經典版）。
+            <strong>操作流程：</strong> 點擊左上角【下拉選單】➔【+ 建立組織圖】➔ 輸入名稱➔ 選擇建立模式。
         </div>
     </section>
 
     <section id="org-edit" class="card">
         <h3>■ 調整組織圖</h3>
-        <p>開啟【編輯模式】開關，即可直覺地調整企業架構。BBP 採用「即時自動儲存」機制。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_edit_mode.png" alt="編輯操作示意">
         </div>
         <ul>
-            <li><strong>新增：</strong> 點擊職務格子下方或右側的【+】號，即可長出下層或同層職務。</li>
+            <li><strong>新增：</strong> 點擊職務格子下方或右側的【+】號。</li>
             <li><strong>刪除：</strong> 點擊格子右上角【⚙️】➔【刪除此功能】。</li>
             <li><span style="color:red; font-weight:bold;">※ 系統防呆機制：僅支援從最下層職務開始刪除。</span></li>
         </ul>
@@ -158,7 +166,6 @@
 </div>
 
 <script>
-    // 平滑捲動
     document.querySelectorAll('.sidebar a').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -167,7 +174,6 @@
         });
     });
 
-    // 圖片放大功能
     function openZoom(el) {
         const img = el.querySelector('img');
         document.getElementById('zoom-img').src = img.src;
