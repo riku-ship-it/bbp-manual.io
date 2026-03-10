@@ -10,76 +10,91 @@
             --main: #4a6cf7; 
             --sub: #ff9800; 
             --bg: #fcfdfe; 
-            --sidebar-w: 240px; 
+            --sidebar-w: 260px; 
             --sidebar-dark: #1e293b;
         }
         
         body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; margin: 0; background: var(--bg); display: flex; transition: 0.3s; }
         
-        /* 側邊導覽 - 支援收合 */
+        /* 側邊導覽優化 */
         .sidebar { 
             width: var(--sidebar-w); 
             background: var(--sidebar-dark); 
             height: 100vh; 
             position: fixed; 
             color: white; 
-            padding: 20px; 
             box-sizing: border-box; 
             overflow-y: auto; 
             z-index: 1000; 
-            transition: transform 0.3s ease, width 0.3s ease;
+            transition: transform 0.3s ease;
         }
         
-        /* 收合狀態的側邊欄 */
-        .sidebar.collapsed { transform: translateX(-100%); width: 0; padding: 0; overflow: hidden; }
+        /* 解決按鈕遮擋：為側邊欄內容增加頂部間距 */
+        .sidebar-content { padding: 80px 20px 20px 20px; }
 
-        .sidebar h3 { font-size: 18px; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .sidebar a { display: block; color: #cbd5e1; text-decoration: none; padding: 12px 10px; border-radius: 8px; margin: 5px 0; transition: 0.3s; font-size: 14px; }
-        .sidebar a:hover { background: var(--main); color: white; }
+        .sidebar.collapsed { transform: translateX(-100%); }
 
-        /* 收合開關按鈕 */
+        .sidebar h3 { 
+            font-size: 18px; 
+            border-bottom: 1px solid #334155; 
+            padding-bottom: 15px; 
+            margin-bottom: 20px; 
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        
+        .sidebar a { display: block; color: #cbd5e1; text-decoration: none; padding: 12px 15px; border-radius: 8px; margin: 8px 0; transition: 0.3s; font-size: 14px; }
+        .sidebar a:hover { background: var(--main); color: white; transform: translateX(5px); }
+
+        /* 收合開關按鈕優化 */
         .toggle-btn {
             position: fixed;
-            left: 20px;
-            top: 20px;
-            background: var(--sidebar-dark);
+            left: 15px;
+            top: 15px;
+            background: var(--main); /* 改為顯眼的藍色 */
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
             cursor: pointer;
             z-index: 1100;
-            font-size: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(74,108,247,0.3);
             transition: 0.3s;
         }
-        .toggle-btn:hover { background: var(--main); }
+        .toggle-btn:hover { background: #3554d1; transform: scale(1.05); }
 
-        /* 主內容區域 - 根據側邊欄狀態調整間距 */
+        /* 主內容區域調整 */
         .main-content { 
             margin-left: var(--sidebar-w); 
             flex: 1; 
             padding: 40px; 
             box-sizing: border-box; 
-            scroll-behavior: smooth; 
             transition: margin-left 0.3s ease;
         }
-        .main-content.expanded { margin-left: 0; padding-top: 80px; }
+        .main-content.expanded { margin-left: 0; }
 
         header { background: linear-gradient(120deg, var(--main), #6a85f1); color: white; padding: 60px; border-radius: 24px; text-align: center; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(74,108,247,0.2); }
-        .card { background: white; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .card { background: white; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; }
         h2 { color: var(--main); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
-        h3 { color: #334155; margin-top: 30px; border-left: 4px solid var(--sub); padding-left: 10px; }
+        h3 { color: #334155; margin-top: 30px; border-left: 5px solid var(--sub); padding-left: 15px; }
+
+        /* 媒體容器 */
         .full-img-box, .video-container { text-align: center; margin: 30px 0; }
-        .full-img-box img, .video-container video { width: 100%; max-width: 850px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-        .full-img-box img { cursor: zoom-in; transition: 0.4s; }
+        .full-img-box img, .video-container video { width: 100%; max-width: 850px; border-radius: 15px; border: 1px solid #e2e8f0; box-shadow: 0 8px 20px rgba(0,0,0,0.06); transition: 0.4s; }
+        .full-img-box img { cursor: zoom-in; }
         .full-img-box:hover img { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(74,108,247,0.15); }
         
         #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; }
         #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid white; border-radius: 4px; }
+        
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .tip-box { background: #f0f4ff; padding: 18px; border-radius: 10px; border-left: 5px solid var(--main); margin: 20px 0; font-size: 15px; line-height: 1.6; }
-        .print-qr { display: none; text-align: center; border: 2px dashed #ccc; padding: 25px; border-radius: 15px; margin: 30px 0; }
+        .tip-box { background: #f0f4ff; padding: 20px; border-radius: 12px; border-left: 6px solid var(--main); margin: 25px 0; font-size: 15px; color: #334155; }
+        .print-qr { display: none; text-align: center; border: 2px dashed #cbd5e1; padding: 25px; border-radius: 20px; margin: 30px 0; background: #f8fafc; }
 
         @media print {
             .sidebar, .no-print, .video-container, .toggle-btn { display: none !important; }
@@ -88,9 +103,8 @@
             .print-qr { display: block; }
         }
 
-        /* 手機版適配 */
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); width: 240px; }
+            .sidebar { transform: translateX(-100%); }
             .sidebar.active { transform: translateX(0); }
             .main-content { margin-left: 0; padding: 20px; padding-top: 80px; }
         }
@@ -101,15 +115,17 @@
 <button class="toggle-btn no-print" onclick="toggleSidebar()">☰</button>
 
 <nav class="sidebar" id="mySidebar">
-    <h3>📖 快速導覽</h3>
-    <a href="#intro" onclick="closeSidebarOnMobile()">1.1 平台定義與理念</a>
-    <a href="#login" onclick="closeSidebarOnMobile()">1.2 登入準備</a>
-    <a href="#lang" onclick="closeSidebarOnMobile()">1.3 介面語言設定</a>
-    <a href="#logic" onclick="closeSidebarOnMobile()">1.4 核心運作邏輯</a>
-    <a href="#nav" onclick="closeSidebarOnMobile()">1.5 介面快速導覽</a>
-    <a href="#org-module" onclick="closeSidebarOnMobile()">2.1 組織圖總覽</a>
-    <a href="#org-add" onclick="closeSidebarOnMobile()">2.2 新增組織圖</a>
-    <a href="#org-edit" onclick="closeSidebarOnMobile()">2.3 調整組織圖</a>
+    <div class="sidebar-content">
+        <h3>📖 快速導覽</h3>
+        <a href="#intro" onclick="closeSidebarOnMobile()">1.1 平台定義與理念</a>
+        <a href="#login" onclick="closeSidebarOnMobile()">1.2 登入準備</a>
+        <a href="#lang" onclick="closeSidebarOnMobile()">1.3 介面語言設定</a>
+        <a href="#logic" onclick="closeSidebarOnMobile()">1.4 核心運作邏輯</a>
+        <a href="#nav" onclick="closeSidebarOnMobile()">1.5 介面快速導覽</a>
+        <a href="#org-module" onclick="closeSidebarOnMobile()">2.1 組織圖總覽</a>
+        <a href="#org-add" onclick="closeSidebarOnMobile()">2.2 新增組織圖</a>
+        <a href="#org-edit" onclick="closeSidebarOnMobile()">2.3 調整組織圖</a>
+    </div>
 </nav>
 
 <div class="main-content" id="mainContent">
@@ -121,16 +137,16 @@
     <section id="intro" class="card">
         <h2>第一部分：平台概觀與核心價值</h2>
         <h3>■ BBP 定義與理念</h3>
-        <p>BBP 是企業數位化營運的「大腦」，旨在串聯組織架構與執行細節。</p>
+        <p>BBP (Business Booster Platform) 是企業數位化營運的「大腦」，旨在串聯組織架構與執行細節 [cite: 5]。</p>
         <ul>
-            <li><strong>數位管理：</strong> 透過系統落實管理邏輯，提升執行效率。</li>
-            <li><strong>資產沉澱：</strong> 確保企業經驗與 SOP 完整留存。</li>
+            <li><strong>數位管理：</strong> 透過系統落實管理邏輯，提升執行效率 [cite: 6]。</li>
+            <li><strong>資產沉澱：</strong> 確保企業經驗與 SOP 完整留存，不隨人員流動流失 [cite: 7]。</li>
         </ul>
     </section>
 
     <section id="login" class="card">
         <h3>■ 登入準備與環境建議</h3>
-        <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></p>
+        <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a> [cite: 10]</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="login_1.png" alt="登入畫面">
             <p style="font-size:12px; color:#aaa; margin-top:10px;">🔍 點擊圖片可放大查看</p>
@@ -139,7 +155,7 @@
 
     <section id="lang" class="card">
         <h3>■ 介面語言設定</h3>
-        <p>1. 點擊右上角 [⚙️ 設定] ➔ 2. 選擇 [Language / 語言] ➔ 3. 選擇 [繁體中文]。</p>
+        <p>1. 點擊右上角 [⚙️ 設定] ➔ 2. 尋找 [Language / 語言] ➔ 3. 選擇 [繁體中文] 即可即時切換 [cite: 16, 17, 18]。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="lang_setting.png" alt="語言設定步驟">
         </div>
@@ -147,7 +163,7 @@
 
     <section id="logic" class="card">
         <h3>■ 核心運作邏輯</h3>
-        <p>平台循環：組織圖 ➔ 任務 ➔ 知識庫 ➔ 儀表板。</p>
+        <p>平台依序由四個模組，形成管理循環：組織圖 ➔ 任務 ➔ 知識庫 ➔ 儀表板 [cite: 20]。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="intro_1.png" alt="運作邏輯循環圖">
         </div>
@@ -156,15 +172,16 @@
     <section id="nav" class="card">
         <h3>■ 介面快速導覽</h3>
         <div class="grid-3">
-            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_A.png"><p style="font-size:14px;">左側選單</p></div>
-            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_B.png"><p style="font-size:14px;">頂部工具列</p></div>
-            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_C.png"><p style="font-size:14px;">主工作區域</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_A.png"><p style="font-size:14px;">A.左側選單</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_B.png"><p style="font-size:14px;">B.頂部工具列</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_C.png"><p style="font-size:14px;">C.主工作區域</p></div>
         </div>
     </section>
 
     <section id="org-module" class="card">
         <h2>第二部分：核心模組詳解</h2>
         <h3>2.1 組織圖 — 企業的骨架</h3>
+        <p>BBP 組織圖具備動態連動能力，是一套具備即時同步能力的雲端架構 [cite: 32]。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_summary.png" alt="組織圖功能總覽">
         </div>
@@ -180,29 +197,30 @@
         </div>
         <div class="print-qr">
             <img src="qr_org_video.png" alt="掃描看影片">
-            <p>🎥 掃描上方 QR Code 觀看動態教學影片</p>
+            <p><strong>🎥 掃描上方 QR Code 觀看動態教學影片</strong></p>
         </div>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_add_4in1.png" alt="新增組織圖步驟">
         </div>
         <div class="tip-box">
-            <strong>操作流程：</strong> 點擊左上角【下拉選單】➔【+ 建立組織圖】➔ 輸入名稱➔ 選擇建立模式。
+            <strong>操作流程：</strong> 點擊左上角【下拉選單】 ➔ 【+ 建立組織圖】 ➔ 輸入名稱 ➔ 選擇建立模式 [cite: 38, 39, 40]。
         </div>
     </section>
 
     <section id="org-edit" class="card">
         <h3>■ 調整組織圖</h3>
+        <p>開啟【編輯模式】開關，即可直覺地調整企業架構 [cite: 46]。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_edit_mode.png" alt="編輯操作示意">
         </div>
         <ul>
-            <li><strong>新增：</strong> 點擊職務格子下方或右側的 [+] 號。</li>
-            <li><strong>刪除：</strong> 點擊格子右上角 [⚙️] ➔ [刪除此功能]。</li>
-            <li><span style="color:red; font-weight:bold;">※ 防呆機制：僅支援從最下層職務開始刪除。</span></li>
+            <li><strong>新增：</strong> 點擊職務格子下方或右側的 [+] 號 [cite: 48]。</li>
+            <li><strong>刪除：</strong> 點擊格子右上角 [⚙️] ➔ [刪除此功能] [cite: 49]。</li>
+            <li><span style="color:red; font-weight:bold;">※ 系統防呆機制：僅支援從最下層職務開始刪除 [cite: 49]。</span></li>
         </ul>
     </section>
 
-    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">🖨️ 列印手冊</button>
+    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">🖨️ 列印 / 轉存 PDF</button>
 </div>
 
 <div id="lightbox" onclick="this.style.display='none'">
@@ -210,12 +228,9 @@
 </div>
 
 <script>
-    // 側邊欄開關邏輯
     function toggleSidebar() {
         const sidebar = document.getElementById('mySidebar');
         const mainContent = document.getElementById('mainContent');
-        
-        // 判斷是否為手機版
         if (window.innerWidth <= 768) {
             sidebar.classList.toggle('active');
         } else {
@@ -224,14 +239,12 @@
         }
     }
 
-    // 手機版點擊連結後自動收合
     function closeSidebarOnMobile() {
         if (window.innerWidth <= 768) {
             document.getElementById('mySidebar').classList.remove('active');
         }
     }
 
-    // 平滑捲動
     document.querySelectorAll('.sidebar a').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -240,7 +253,6 @@
         });
     });
 
-    // 圖片放大
     function openZoom(el) {
         document.getElementById('zoom-img').src = el.querySelector('img').src;
         document.getElementById('lightbox').style.display = 'flex';
