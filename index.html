@@ -10,7 +10,7 @@
             --main: #4a6cf7; 
             --sub: #ff9800; 
             --bg: #fcfdfe; 
-            --sidebar-w: 260px; 
+            --sidebar-w: 280px; 
             --sidebar-dark: #1e293b;
         }
         
@@ -27,53 +27,63 @@
             overflow-y: auto; 
             z-index: 1000; 
             transition: transform 0.3s ease;
-            padding: 80px 20px 20px 20px; /* 這裡預留了按鈕高度 */
+            padding: 80px 15px 20px 15px;
         }
         
         .sidebar.collapsed { transform: translateX(-100%); }
 
-        .sidebar h3 { 
-            font-size: 18px; 
-            border-bottom: 1px solid #334155; 
-            padding-bottom: 15px; 
-            margin-bottom: 20px; 
-            color: #fff;
-            letter-spacing: 1px;
-        }
+        /* 📁 階層選單核心樣式 */
+        .nav-group { margin-bottom: 15px; }
         
-        .sidebar a { display: block; color: #cbd5e1; text-decoration: none; padding: 12px 15px; border-radius: 8px; margin: 8px 0; transition: 0.3s; font-size: 14px; }
+        .nav-header { 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #2d3a4f;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            color: #fff;
+            transition: 0.3s;
+        }
+        .nav-header:hover { background: #3d4d66; }
+        .nav-header::after { content: '▼'; font-size: 10px; transition: 0.3s; color: var(--sub); }
+        .nav-header.active::after { transform: rotate(180deg); }
+
+        .nav-sub { 
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding-left: 10px;
+        }
+        /* 預設展開類別 */
+        .nav-sub.show { max-height: 500px; }
+
+        .sidebar a { 
+            display: block; 
+            color: #cbd5e1; 
+            text-decoration: none; 
+            padding: 10px 15px; 
+            border-radius: 6px; 
+            margin: 5px 0; 
+            transition: 0.3s; 
+            font-size: 13.5px; 
+        }
         .sidebar a:hover { background: var(--main); color: white; transform: translateX(5px); }
 
-        /* 收合開關按鈕：固定在左上角 */
+        /* 收合開關按鈕 */
         .toggle-btn {
-            position: fixed;
-            left: 15px;
-            top: 15px;
-            background: var(--main);
-            color: white;
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            cursor: pointer;
-            z-index: 1100;
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(74,108,247,0.3);
+            position: fixed; left: 15px; top: 15px; background: var(--main); color: white; border: none;
+            width: 45px; height: 45px; border-radius: 10px; cursor: pointer; z-index: 1100;
+            font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(74,108,247,0.3);
             transition: 0.3s;
         }
         .toggle-btn:hover { background: #3554d1; transform: scale(1.05); }
 
         /* 主內容區域 */
-        .main-content { 
-            margin-left: var(--sidebar-w); 
-            flex: 1; 
-            padding: 40px; 
-            box-sizing: border-box; 
-            transition: margin-left 0.3s ease;
-        }
+        .main-content { margin-left: var(--sidebar-w); flex: 1; padding: 40px; box-sizing: border-box; transition: margin-left 0.3s ease; }
         .main-content.expanded { margin-left: 0; padding-top: 80px; }
 
         header { background: linear-gradient(120deg, var(--main), #6a85f1); color: white; padding: 60px; border-radius: 24px; text-align: center; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(74,108,247,0.2); }
@@ -112,15 +122,25 @@
 <button class="toggle-btn no-print" onclick="toggleSidebar()">☰</button>
 
 <nav class="sidebar" id="mySidebar">
-    <h3>📖 快速導覽</h3>
-    <a href="#intro" onclick="closeSidebarOnMobile()">1.1 平台定義與理念</a>
-    <a href="#login" onclick="closeSidebarOnMobile()">1.2 登入準備</a>
-    <a href="#lang" onclick="closeSidebarOnMobile()">1.3 介面語言設定</a>
-    <a href="#logic" onclick="closeSidebarOnMobile()">1.4 核心運作邏輯</a>
-    <a href="#nav" onclick="closeSidebarOnMobile()">1.5 介面快速導覽</a>
-    <a href="#org-module" onclick="closeSidebarOnMobile()">2.1 組織圖總覽</a>
-    <a href="#org-add" onclick="closeSidebarOnMobile()">2.2 新增組織圖</a>
-    <a href="#org-edit" onclick="closeSidebarOnMobile()">2.3 調整組織圖</a>
+    <div class="nav-group">
+        <div class="nav-header active" onclick="toggleNavGroup(this)">第一部分：平台概觀</div>
+        <div class="nav-sub show">
+            <a href="#intro" onclick="closeSidebarOnMobile()">1.1 平台定義與理念</a>
+            <a href="#login" onclick="closeSidebarOnMobile()">1.2 登入準備</a>
+            <a href="#lang" onclick="closeSidebarOnMobile()">1.3 介面語言設定</a>
+            <a href="#logic" onclick="closeSidebarOnMobile()">1.4 核心運作邏輯</a>
+            <a href="#nav" onclick="closeSidebarOnMobile()">1.5 介面快速導覽</a>
+        </div>
+    </div>
+
+    <div class="nav-group">
+        <div class="nav-header active" onclick="toggleNavGroup(this)">第二部分：核心模組詳解</div>
+        <div class="nav-sub show">
+            <a href="#org-module" onclick="closeSidebarOnMobile()">2.1 組織圖總覽</a>
+            <a href="#org-add" onclick="closeSidebarOnMobile()">2.2 新增組織圖</a>
+            <a href="#org-edit" onclick="closeSidebarOnMobile()">2.3 調整組織圖</a>
+        </div>
+    </div>
 </nav>
 
 <div class="main-content" id="mainContent">
@@ -141,12 +161,7 @@
 
     <section id="login" class="card">
         <h3>■ 登入準備與環境建議</h3>
-        <p>為了確保最佳的操作體驗，請於開始前確認以下資訊：</p>
-        <ul>
-            <li><strong>登入網址：</strong> <a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></li>
-            <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入。</li>
-            <li><strong>安全提示：</strong> 首次登入後，建議立即於「個人設定」修改初始密碼。</li>
-        </ul>
+        <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="login_1.png" alt="登入畫面">
             <p style="font-size:12px; color:#aaa; margin-top:10px;">🔍 點擊圖片可放大查看</p>
@@ -155,12 +170,7 @@
 
     <section id="lang" class="card">
         <h3>■ 介面語言設定</h3>
-        <p>BBP 預設會根據系統環境自動切換。若需手動調整語系，操作步驟如下：</p>
-        <ol>
-            <li>點擊畫面右上角的 [⚙️ 設定]。</li>
-            <li>尋找 [Language / 語言] 欄位。</li>
-            <li>於選單中選擇 [繁體中文] 即可即時切換。</li>
-        </ol>
+        <p>1. 點擊右上角 [⚙️ 設定] ➔ 2. 選擇 [Language / 語言] ➔ 3. 選擇 [繁體中文] 即可即時切換。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="lang_setting.png" alt="語言設定步驟">
         </div>
@@ -194,22 +204,18 @@
 
     <section id="org-add" class="card">
         <h3>■ 新增組織圖</h3>
-        <p>當企業需要建立新版本架構時，請參考下方影片或圖解操作：</p>
-        
         <div class="video-container">
             <video width="100%" controls poster="org_add_4in1.png">
                 <source src="org_tutorial.mp4" type="video/mp4">
             </video>
             <p style="font-size:12px; color:#666; margin-top:10px;">▶️ 點擊播放「新增組織圖」動態教學</p>
         </div>
-
         <div class="print-qr">
             <img src="qr_org_video.png" alt="掃描看影片">
-            <p><strong>🎥 掃描上方 QR Code 觀看動態教學影片</strong></p>
+            <p><strong>🎥 掃描上方 QR Code 觀看「新增組織圖」動態教學影片</strong></p>
         </div>
-
         <div class="full-img-box" onclick="openZoom(this)">
-            <img src="org_add_4in1.png" alt="新增組織圖步驟">
+            <img src="org_add_4in1.png" alt="新增組織圖四步驟">
         </div>
         <div class="tip-box">
             <strong>操作流程：</strong> 點擊左上角【下拉選單】 ➔ 【+ 建立組織圖】 ➔ 輸入名稱 ➔ 選擇建立模式。
@@ -218,7 +224,6 @@
 
     <section id="org-edit" class="card">
         <h3>■ 調整組織圖</h3>
-        <p>開啟【編輯模式】開關，即可直覺地調整企業架構。BBP 採用「即時自動儲存」機制。</p>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_edit_mode.png" alt="編輯操作示意">
         </div>
@@ -232,11 +237,10 @@
     <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">🖨️ 列印 / 轉存 PDF</button>
 </div>
 
-<div id="lightbox" onclick="this.style.display='none'">
-    <img id="zoom-img">
-</div>
+<div id="lightbox" onclick="this.style.display='none'"><img id="zoom-img"></div>
 
 <script>
+    // 側邊欄縮放切換
     function toggleSidebar() {
         const sidebar = document.getElementById('mySidebar');
         const mainContent = document.getElementById('mainContent');
@@ -245,6 +249,17 @@
         } else {
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('expanded');
+        }
+    }
+
+    // 📁 階層選單收合切換邏輯
+    function toggleNavGroup(header) {
+        header.classList.toggle('active');
+        const subMenu = header.nextElementSibling;
+        if (subMenu.classList.contains('show')) {
+            subMenu.classList.remove('show');
+        } else {
+            subMenu.classList.add('show');
         }
     }
 
