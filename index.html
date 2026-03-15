@@ -16,7 +16,7 @@
         
         body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; margin: 0; background: var(--bg); display: flex; transition: 0.3s; }
         
-        /* 側邊導覽：增加頂部內距，避免標題被按鈕遮擋 */
+        /* 側邊導覽 */
         .sidebar { 
             width: var(--sidebar-w); 
             background: var(--sidebar-dark); 
@@ -58,8 +58,7 @@
             transition: max-height 0.3s ease-out;
             padding-left: 10px;
         }
-        /* 預設展開類別 */
-        .nav-sub.show { max-height: 500px; }
+        .nav-sub.show { max-height: 800px; }
 
         .sidebar a { 
             display: block; 
@@ -91,6 +90,7 @@
         h2 { color: var(--main); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
         h3 { color: #334155; margin-top: 30px; border-left: 5px solid var(--sub); padding-left: 15px; }
 
+        /* 媒體容器 */
         .full-img-box, .video-container { text-align: center; margin: 30px 0; }
         .full-img-box img, .video-container video { width: 100%; max-width: 850px; border-radius: 15px; border: 1px solid #e2e8f0; box-shadow: 0 8px 20px rgba(0,0,0,0.06); transition: 0.4s; }
         .full-img-box img { cursor: zoom-in; }
@@ -136,9 +136,9 @@
     <div class="nav-group">
         <div class="nav-header active" onclick="toggleNavGroup(this)">第二部分：核心模組詳解</div>
         <div class="nav-sub show">
-            <a href="#org-module" onclick="closeSidebarOnMobile()">2.1 組織圖總覽</a>
-            <a href="#org-add" onclick="closeSidebarOnMobile()">2.2 新增組織圖</a>
-            <a href="#org-edit" onclick="closeSidebarOnMobile()">2.3 調整組織圖</a>
+            <a href="#org-module" onclick="closeSidebarOnMobile()">2.1 組織圖 — 企業骨架</a>
+            <a href="#task-module" onclick="closeSidebarOnMobile()">2.2 任務 — 執行動力</a>
+            <a href="#kb-module" onclick="closeSidebarOnMobile()">2.3 知識庫 — 企業資產</a>
         </div>
     </div>
 </nav>
@@ -161,7 +161,13 @@
 
     <section id="login" class="card">
         <h3>■ 登入準備與環境建議</h3>
-        <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></p>
+        <p>為了確保最佳的操作體驗，請於開始前確認以下資訊：</p>
+        <ul>
+            <li><strong>登入網址：</strong> <a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></li>
+            <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入。</li>
+            <li><strong>安全提示：</strong> 首次登入後，建議立即於「個人設定」修改初始密碼。</li>
+            <li><strong>忘記密碼：</strong> 若忘記密碼，在登入頁面下方可以點選重新設定。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="login_1.png" alt="登入畫面">
             <p style="font-size:12px; color:#aaa; margin-top:10px;">🔍 點擊圖片可放大查看</p>
@@ -170,7 +176,12 @@
 
     <section id="lang" class="card">
         <h3>■ 介面語言設定</h3>
-        <p>1. 點擊右上角 [⚙️ 設定] ➔ 2. 選擇 [Language / 語言] ➔ 3. 選擇 [繁體中文] 即可即時切換。</p>
+        <p>BBP 預設會根據系統環境自動切換。若需手動調整語系，請依以下步驟操作：</p>
+        <ol>
+            <li>點擊畫面右上角的 [⚙️ 設定]。</li>
+            <li>尋找 [Language / 語言] 欄位。</li>
+            <li>於選單中選擇 [繁體中文] 即可即時切換。</li>
+        </ol>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="lang_setting.png" alt="語言設定步驟">
         </div>
@@ -178,7 +189,13 @@
 
     <section id="logic" class="card">
         <h3>■ 核心運作邏輯</h3>
-        <p>平台依序由四個模組，形成管理循環：組織圖 ➔ 任務 ➔ 知識庫 ➔ 儀表板。</p>
+        <p>平台依序由四個模組，形成管理循環：</p>
+        <ul>
+            <li><strong>組織圖：</strong> 定好誰負責什麼，所有工作從這裡開始。</li>
+            <li><strong>任務：</strong> 自己安排工作節奏，再透過「週計畫」對齊目標。</li>
+            <li><strong>知識庫：</strong> 把做事的好方法（SOP）存起來，讓經驗可以傳承。</li>
+            <li><strong>儀表板：</strong> 執行數據自動變圖表，讓主管看實話做決策。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="intro_1.png" alt="運作邏輯循環圖">
         </div>
@@ -200,10 +217,8 @@
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_summary.png" alt="組織圖功能總覽">
         </div>
-    </section>
 
-    <section id="org-add" class="card">
-        <h3>■ 新增組織圖</h3>
+        <h3 id="org-add">■ 新增組織圖</h3>
         <div class="video-container">
             <video width="100%" controls poster="org_add_4in1.png">
                 <source src="org_tutorial.mp4" type="video/mp4">
@@ -212,26 +227,60 @@
         </div>
         <div class="print-qr">
             <img src="qr_org_video.png" alt="掃描看影片">
-            <p><strong>🎥 掃描上方 QR Code 觀看「新增組織圖」動態教學影片</strong></p>
+            <p><strong>🎥 掃描上方 QR Code 觀看教學影片</strong></p>
         </div>
         <div class="full-img-box" onclick="openZoom(this)">
-            <img src="org_add_4in1.png" alt="新增組織圖四步驟">
+            <img src="org_add_4in1.png" alt="新增組織圖步驟">
         </div>
         <div class="tip-box">
             <strong>操作流程：</strong> 點擊左上角【下拉選單】 ➔ 【+ 建立組織圖】 ➔ 輸入名稱 ➔ 選擇建立模式。
         </div>
-    </section>
 
-    <section id="org-edit" class="card">
-        <h3>■ 調整組織圖</h3>
+        <h3 id="org-edit">■ 調整組織圖</h3>
         <div class="full-img-box" onclick="openZoom(this)">
             <img src="org_edit_mode.png" alt="編輯操作示意">
         </div>
         <ul>
             <li><strong>新增：</strong> 點擊職務格子下方或右側的 [+] 號。</li>
             <li><strong>刪除：</strong> 點擊格子右上角 [⚙️] ➔ [刪除此功能]。</li>
-            <li><span style="color:red; font-weight:bold;">※ 系統防呆機制：僅支援從最下層職務開始刪除。</span></li>
+            <li><span style="color:red; font-weight:bold;">※ 僅支援從最下層職務開始刪除。</span></li>
         </ul>
+    </section>
+
+    <section id="task-module" class="card">
+        <h3>2.2 任務 — 執行的動力</h3>
+        <p>任務模組整合了指派機制與多維度檢視，確保企業目標落實到每日執行中。</p>
+        <ul>
+            <li><strong>角色分工：</strong> 支援建立者、負責人、執行者與協作者機制。</li>
+            <li><strong>自動統計：</strong> 與行事曆連動，自動計算每日工時。</li>
+            <li><strong>三種視角：</strong> 看板（管理工作流）、行事曆（排程）、週計畫（審核基礎）。</li>
+        </ul>
+        <div class="full-img-box" onclick="openZoom(this)">
+            <img src="task_overview.png" alt="任務功能概觀">
+        </div>
+    </section>
+
+    <section id="kb-module" class="card">
+        <h3>2.3 知識庫 — 企業的資產</h3>
+        <p>知識庫主要用於儲存、管理並分配內部的規章文件與培訓資料。</p>
+        <ul>
+            <li><strong>集中管理：</strong> 文件統一儲存，支持全文檢索。</li>
+            <li><strong>精準指派：</strong> 系統按職務自動分發必讀資料。</li>
+            <li><strong>學習追蹤：</strong> 視覺化進度條確保重要規範確實傳達到位。</li>
+        </ul>
+        <div class="full-img-box" onclick="openZoom(this)">
+            <img src="kb_summary.png" alt="知識庫功能總覽">
+        </div>
+
+        <h3>■ 建立規章與指派學習</h3>
+        <ol>
+            <li><strong>建分類：</strong> 先在【知識庫】建好資料夾（如：規章、職務說明）。</li>
+            <li><strong>寫內容：</strong> 進入資料夾點擊「新增文件」並編輯內容。</li>
+            <li><strong>指派對象：</strong> 點擊文件右側【指定學習】，依職務選取目標對象並保存。</li>
+        </ol>
+        <div class="full-img-box" onclick="openZoom(this)">
+            <img src="kb_op_steps.png" alt="知識庫操作步驟">
+        </div>
     </section>
 
     <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">🖨️ 列印 / 轉存 PDF</button>
@@ -240,7 +289,6 @@
 <div id="lightbox" onclick="this.style.display='none'"><img id="zoom-img"></div>
 
 <script>
-    // 側邊欄縮放切換
     function toggleSidebar() {
         const sidebar = document.getElementById('mySidebar');
         const mainContent = document.getElementById('mainContent');
@@ -252,15 +300,10 @@
         }
     }
 
-    // 📁 階層選單收合切換邏輯
     function toggleNavGroup(header) {
         header.classList.toggle('active');
         const subMenu = header.nextElementSibling;
-        if (subMenu.classList.contains('show')) {
-            subMenu.classList.remove('show');
-        } else {
-            subMenu.classList.add('show');
-        }
+        subMenu.classList.toggle('show');
     }
 
     function closeSidebarOnMobile() {
