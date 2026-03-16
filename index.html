@@ -12,12 +12,11 @@
             --bg: #fcfdfe; 
             --sidebar-w: 300px; 
             --sidebar-dark: #1e293b;
-            --sidebar-hover: #2d3a4f;
         }
         
         body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; margin: 0; background: var(--bg); display: flex; transition: 0.3s; }
         
-        /* 側邊導覽優化 */
+        /* 側邊導覽 */
         .sidebar { 
             width: var(--sidebar-w); background: var(--sidebar-dark); height: 100vh; position: fixed; 
             color: white; box-sizing: border-box; overflow-y: auto; z-index: 1000; 
@@ -36,7 +35,7 @@
         .nav-header.active::after { transform: rotate(180deg); }
 
         .nav-sub { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding-left: 5px; }
-        .nav-sub.show { max-height: 2000px; }
+        .nav-sub.show { max-height: 2500px; }
 
         .sub-header {
             display: flex; justify-content: space-between; align-items: center;
@@ -49,10 +48,7 @@
         .nav-inner { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 15px; }
         .nav-inner.show { max-height: 600px; }
 
-        .sidebar a { 
-            display: block; color: #94a3b8; text-decoration: none; padding: 8px 15px; 
-            border-radius: 5px; margin: 2px 0; transition: 0.2s; font-size: 13px; 
-        }
+        .sidebar a { display: block; color: #94a3b8; text-decoration: none; padding: 8px 15px; border-radius: 5px; margin: 2px 0; transition: 0.2s; font-size: 13px; }
         .sidebar a:hover { color: var(--sub); transform: translateX(5px); }
 
         /* 內容區域 */
@@ -62,11 +58,10 @@
         .card { background: white; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; }
         h2 { color: var(--main); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
         h3 { color: #334155; margin-top: 30px; border-left: 5px solid var(--sub); padding-left: 15px; }
-        h4 { color: var(--main); margin-bottom: 10px; }
         p, li { line-height: 1.8; color: #444; font-size: 16px; }
 
         .full-img-box, .video-container { text-align: center; margin: 30px 0; }
-        .full-img-box img, .video-container video { width: 100%; max-width: 850px; border-radius: 15px; border: 1px solid #e2e8f0; cursor: zoom-in; transition: 0.4s; }
+        .full-img-box img, .video-container video { width: 100%; max-width: 850px; border-radius: 15px; border: 1px solid #e2e8f0; cursor: zoom-in; }
         .tip-box { background: #f0f4ff; padding: 20px; border-radius: 12px; border-left: 6px solid var(--main); margin: 25px 0; }
 
         .toggle-btn { position: fixed; left: 15px; top: 15px; background: var(--main); color: white; border: none; width: 45px; height: 45px; border-radius: 10px; cursor: pointer; z-index: 1100; font-size: 22px; display: flex; align-items: center; justify-content: center; }
@@ -76,7 +71,6 @@
         @media print {
             .sidebar, .toggle-btn, .video-container { display: none !important; }
             .main-content { margin-left: 0 !important; }
-            .card { page-break-inside: avoid; border: none; box-shadow: none; }
         }
     </style>
 </head>
@@ -129,7 +123,7 @@
                 <div class="nav-inner">
                     <a href="#dash-summary">■ 模組功能總覽</a>
                     <a href="#dash-metric">■ 指標建立與設定</a>
-                    <a href="#dash-share">■ 儀表板建立與分享</a>
+                    <a href="#dash-share">■ 儀表板分享</a>
                 </div>
             </div>
         </div>
@@ -138,9 +132,9 @@
     <div class="nav-group">
         <div class="nav-header active" onclick="toggleNavGroup(this)">第三部分：管理與技術維護</div>
         <div class="nav-sub show">
-            <a href="#personal-config">■ 帳號安全與個人化設定</a>
-            <a href="#troubleshooting">■ 常見疑難排解</a>
-            <a href="#support-res">■ 支援管道與多元資源</a>
+            <a href="#personal-config">帳號安全與個人化</a>
+            <a href="#troubleshooting">常見疑難排解</a>
+            <a href="#support-res">支援管道與資源</a>
         </div>
     </div>
 </nav>
@@ -154,70 +148,98 @@
     <section id="intro" class="card">
         <h2>第一部分：平台概觀與核心價值</h2>
         <h3>■ BBP 定義與理念</h3>
-        <p>它是公司的「<strong>數位大腦</strong>」，幫我們把「組織架構」與「每日工作」串聯起來，讓管理進度一眼看穿。</p>
+        <p>BBP 是企業數位化營運的「<strong>數位大腦</strong>」，幫我們把「組織架構」與「每日工作」串聯起來，讓管理進度一眼看穿。</p>
         <ul>
             <li><strong>工作不瞎忙：</strong> 讓系統幫你管雜事，把精力留給真正有產值的工作。</li>
-            <li><strong>經驗不流失：</strong> 無論誰請假或離職，做事方法（SOP）都留在系統裡，新人一秒上手。</li>
+            <li><strong>經驗不流失：</strong> 做事方法（SOP）都留在系統裡，新人一秒上手。</li>
         </ul>
     </section>
 
     <section id="login" class="card">
         <h3>■ 登入準備與環境建議</h3>
-        <p>為了確保最佳的操作體驗，請於開始前確認以下資訊：</p>
+        <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></p>
         <ul>
-            <li><strong>登入網址：</strong> <a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></li>
             <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入。</li>
-            <li><strong>安全提示：</strong> 首次登入後，建議立即於「個人設定」修改初始密碼。</li>
             <li><strong>忘記密碼：</strong> 若忘記密碼在登入頁面下方可以點選重新設定。</li>
         </ul>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="login_1.png" alt="登入介面"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="login_1.png" alt="登入畫面"></div>
+    </section>
+
+    <section id="lang" class="card">
+        <h3>■ 介面語言設定</h3>
+        <p>BBP 預設會自動切換。若需手動調整：點擊右上角 [⚙️ 設定] ➔ 選擇 [Language / 語言] ➔ 選擇 [繁體中文]。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="lang_setting.png" alt="語系設定步驟"></div>
+    </section>
+
+    <section id="logic" class="card">
+        <h3>■ 核心運作邏輯</h3>
+        <p>平台循環：<strong>組織圖</strong> (基礎) ➔ <strong>任務</strong> (執行) ➔ <strong>知識庫</strong> (經驗) ➔ <strong>儀表板</strong> (數據)。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="intro_1.png" alt="核心邏輯圖"></div>
+    </section>
+
+    <section id="quick-nav" class="card">
+        <h3>■ 介面快速導覽</h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_A.png"><p style="font-size:12px;">A.左側選單</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_B.png"><p style="font-size:12px;">B.頂部列</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_C.png"><p style="font-size:12px;">C.主區域</p></div>
+        </div>
     </section>
 
     <section id="org-summary" class="card">
         <h2>第二部分：核心模組詳解</h2>
         <h3>2.1 組織圖 — 企業的骨架</h3>
-        <p>BBP 組織圖是企業管理系統的核心基礎。它不同於傳統 Excel 或靜態 PDF，它能讓整間公司的資訊活起來。</p>
-        <ul>
-            <li><strong>數據看績效：</strong> 自動連結儀表板，即時掌握營運成效。</li>
-            <li><strong>具體成果 (VFP)：</strong> 定義職務的「最終成果」，讓團隊目標聚焦。</li>
-            <li><strong>工作內容與 SOP：</strong> 列出每天要做的事與標準步驟，縮短新人學習曲線。</li>
-        </ul>
+        <p>BBP 組織圖是企業管理系統的核心基礎。具備數據看績效、定義具體成果 (VFP) 與 SOP 列出標準步驟等特點。</p>
         <div class="full-img-box" onclick="openZoom(this)"><img src="org_summary.png" alt="組織圖概觀"></div>
+    </section>
+
+    <section id="org-add" class="card">
+        <h3>■ 新增組織圖</h3>
+        <div class="video-container">
+            <video width="100%" controls poster="org_add_4in1.png"><source src="org_tutorial.mp4" type="video/mp4"></video>
+        </div>
+        <div class="tip-box">操作流程：左上角【下拉選單】➔【+ 建立組織圖】。</div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="org_add_4in1.png" alt="新增圖解"></div>
+    </section>
+
+    <section id="task-summary" class="card">
+        <h3>2.2 任務 — 執行動力</h3>
+        <p>包含任務建立、行事曆同步與週計畫審核。主管可隨時監督下屬進度並給予協助。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_overview.png" alt="任務功能概觀"></div>
+    </section>
+
+    <section id="kb-summary" class="card">
+        <h3>2.3 知識庫 — 企業資產</h3>
+        <p>資料不難找，文件統一管理一搜就有。支持將文件指派給特定職務進行學習確認。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="kb_summary.png" alt="知識庫圖解"></div>
+    </section>
+
+    <section id="dash-summary" class="card">
+        <h3>2.4 儀表板 — 數據真相</h3>
+        <p>執行數據自動變圖表。打造專屬畫面，把最重要資訊放在最前面。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="dash_overview.png" alt="儀表板圖解"></div>
     </section>
 
     <section id="personal-config" class="card">
         <h2>第三部分：管理與技術維護</h2>
         <h3>■ 帳號安全與個人化設定</h3>
-        <p>為了保障企業數據安全，建議每位使用者定期檢查帳號狀態：</p>
-        <ul>
-            <li><strong>個人化：</strong> 於「個人設定」修改頭像與顯示名稱，強化團隊協作的辨識度。</li>
-            <li><strong>介面偏好：</strong> 如調整儀表板佈局等設定僅套用於個人視角，不影響他人。</li>
-        </ul>
+        <p>建議每位使用者定期檢查帳號狀態。於「個人設定」修改頭像與密碼，保障企業數據安全。</p>
     </section>
 
     <section id="troubleshooting" class="card">
         <h3>■ 常見疑難排解</h3>
-        <p>當操作遇到障礙時，請先參考以下自我檢查清單：</p>
         <ul>
-            <li><strong>權限問題：</strong> 若無法查看特定模組或數據，請確認「組織圖」中的職務指派是否正確。</li>
-            <li><strong>網頁延遲：</strong> 請確認網路連線狀況，或嘗試重新整理頁面執行手動刷新。</li>
+            <li><strong>權限問題：</strong> 請確認「組織圖」中的職務指派是否正確。</li>
+            <li><strong>同步延遲：</strong> 嘗試重新整理網頁。</li>
         </ul>
     </section>
 
     <section id="support-res" class="card">
-        <h3>■ 支援管道與多元資源</h3>
-        <p>若上述步驟仍無法解決您的問題，請透過以下管道尋求協助：</p>
-        <ul>
-            <li><strong>數位教學資源：</strong> 平台內知識庫存有多項操作文件，包含組織圖建立、任務指派等，協助您快速上手。</li>
-            <li><strong>技術支援聯繫：</strong> 若遇到系統錯誤（Bug）或帳號授權問題，請直接聯繫您的執行顧問。</li>
-        </ul>
-        <div class="print-qr">
-            <img src="qr_org_video.png" alt="掃描看影片">
-            <p><strong>🎥 掃描 QR Code 觀看更多動態教學影片</strong></p>
-        </div>
+        <h3>■ 支援管道與資源</h3>
+        <p>若遇到系統錯誤（Bug）或帳號問題，請直接聯繫您的執行顧問或查閱知識庫教學文件。</p>
     </section>
 
-    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">🖨️ 列印手冊</button>
+    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer;">🖨️ 列印手冊</button>
 </div>
 
 <div id="lightbox" onclick="this.style.display='none'"><img id="zoom-img"></div>
@@ -229,26 +251,20 @@
         sidebar.classList.toggle('collapsed');
         mainContent.classList.toggle('expanded');
     }
-
     function toggleNavGroup(header) {
         header.classList.toggle('active');
         header.nextElementSibling.classList.toggle('show');
     }
-
     function toggleSubGroup(header) {
         header.classList.toggle('active');
         header.nextElementSibling.classList.toggle('show');
     }
-
     document.querySelectorAll('.sidebar a').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-            if (window.innerWidth <= 768) toggleSidebar();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
         });
     });
-
     function openZoom(el) {
         document.getElementById('zoom-img').src = el.querySelector('img').src;
         document.getElementById('lightbox').style.display = 'flex';
