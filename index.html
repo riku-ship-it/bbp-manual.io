@@ -160,6 +160,7 @@
         <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></p>
         <ul>
             <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入。</li>
+            <li><strong>安全提示：</strong> 首次登入後，建議立即於「個人設定」修改初始密碼。</li>
             <li><strong>忘記密碼：</strong> 若忘記密碼在登入頁面下方可以點選重新設定。</li>
         </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="login_1.png" alt="登入畫面"></div>
@@ -179,6 +180,11 @@
 
     <section id="quick-nav" class="card">
         <h3>■ 介面快速導覽</h3>
+        <ul>
+            <li><strong>左側功能列：</strong> 一鍵切換組織圖、任務、知識庫或儀表板等功能。</li>
+            <li><strong>頂部工具列：</strong> 找通知、搜任務或修改個人設定。</li>
+            <li><strong>主工作區域：</strong> 所有操作與畫面都在這裡。</li>
+        </ul>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
             <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_A.png"><p style="font-size:12px;">A.左側選單</p></div>
             <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_B.png"><p style="font-size:12px;">B.頂部列</p></div>
@@ -226,28 +232,43 @@
                 </ul>
             </li>
             <li>修改職務資訊：在編輯模式下，直接點擊職務格即可修改【職務名稱】、【產品】或【工作內容】。</li>
-            <li>進階設定：點擊任一職務格子右上角【⚙】，可在彈出視窗中設定：
-                <ul>
-                    <li>職員管理：指派該職務的負責人。</li>
-                    <li>權限設定：定義該職務在系統內的權限範圍。</li>
-                    <li>例行任務：此職位必須定期執行的任務。</li>
-                    <li>指標數據：設定該職務需追蹤的指標。</li>
-                </ul>
-            </li>
+            <li>進階設定：點擊任一職務格子右上角【⚙】，可在彈出視窗中進行職務的最低限度配置（職員、權限、例行任務、指標）。</li>
         </ul>
+
+        <h3>■ 編輯模式操作說明</h3>
         <div class="full-img-box" onclick="openZoom(this)"><img src="org_edit_mode.png" alt="編輯模式操作說明"></div>
+
+        <h3>■ 職務內容／進階設定</h3>
+        <p>在職務格子的設定視窗中，你可以完成以下設定，讓職務責任與管理指標清楚落地：</p>
+        <ul>
+            <li><strong>職員管理：</strong> 指派該職務的負責人。</li>
+            <li><strong>權限設定：</strong> 定義該職務在系統內的權限範圍。</li>
+            <li><strong>例行任務：</strong> 此職位必須定期執行的任務。</li>
+            <li><strong>指標數據：</strong> 設定該職務需追蹤的指標。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="org_advanced_settings.png" alt="職務內容與進階設定"></div>
     </section>
 
     <section id="task-summary" class="card">
         <h3>2.2 任務 — 執行動力</h3>
-        <p>包含任務建立、行事曆同步與週計畫審核。主管可隨時監督下屬進度並給予協助。</p>
+        <p>BBP 任務模組用來組織、指派並追蹤工作進度，並整合行事曆同步與週計畫審核，讓目標能落實到每日執行。</p>
+        <ul>
+            <li><strong>透明協作：</strong> 支援多人負責與協作者（CC）機制，確保資訊不遺漏。</li>
+            <li><strong>自動統計：</strong> 與行事曆連動，自動計算每日任務數量與工時，作為週計畫的基礎。</li>
+            <li><strong>階層管理：</strong> 主管可切換視角監督下屬進度並給予協助。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="task_summary.png" alt="任務功能總覽心智圖"></div>
     </section>
 
     <section id="task-create" class="card">
         <h3>■ 任務建立與多模式檢視</h3>
-        <p>以下畫面示範如何建立任務、切換三種模式以及查看管理視角：</p>
+        <p>建立任務時建議包含明確的負責人與時間設定，確保後續追蹤與週計畫統計準確。</p>
+        <ul>
+            <li><strong>建立任務：</strong> 點擊右上角【建立任務】，輸入清楚的名稱與預期結果。</li>
+            <li><strong>角色指派：</strong> 指定負責人（執行者）、建立者與協作者（CC）。建立者僅限一人，執行者與協作者可為多人。</li>
+            <li><strong>時間設置：</strong> 設定開始與截止日期。若未設定開始日期，任務將不會顯示在行事曆上。</li>
+            <li><strong>檢視模式切換：</strong> 依管理需求切換任務看板、行事曆、週計畫三種視角。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="task_create.png" alt="建立任務視窗"></div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="task_view_switch.png" alt="三種模式切換按鈕"></div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="task_card_detail_A.png" alt="管理視角與職務切換"></div>
@@ -259,7 +280,11 @@
 
     <section id="task-audit" class="card">
         <h3>■ 週計畫審核機制</h3>
-        <p>週計畫的切換、對應指標、提交與主管審核畫面：</p>
+        <p>週計畫是落實「工作對齊」的關鍵工具，透過提交與審核機制，確保任務安排符合公司方向。</p>
+        <ul>
+            <li><strong>職員提交：</strong> 進入【週計畫】分頁，檢查系統彙整的任務列表與工時，點擊【提交核准】並選擇核准者。</li>
+            <li><strong>主管審核：</strong> 主管於【待核准】分頁檢視任務清單與工時安排，計畫無誤則【核准】；需調整則【拒絕】並在評論區提供具體回饋。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="task_weekly_plan_A.png" alt="週計畫切換標籤"></div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="task_weekly_plan_B.png" alt="週計畫對應指標"></div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="task_weekly_plan_C.png" alt="週計畫提交核准按鈕"></div>
@@ -268,46 +293,79 @@
 
     <section id="task-google" class="card">
         <h3>■ Google行事曆連動</h3>
-        <p>Google 行事曆連動設定與同步後的畫面示意：</p>
+        <p>把 Google 行事曆接上 BBP 後，會議行程可自動帶入，並納入工時統計與週計畫。</p>
+        <ul>
+            <li><strong>綁定路徑：</strong> 進入【設定】&gt;【個人資料設定】，在「整合」區塊點擊綁定 Google 帳號。</li>
+            <li><strong>提醒：</strong> 一個 BBP 帳號目前只能綁定一個 Google 帳戶。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="task_google_sync.png" alt="Google 行事曆連動"></div>
     </section>
 
     <section id="kb-summary" class="card">
         <h3>2.3 知識庫 — 企業資產</h3>
-        <p>資料不難找，文件統一管理一搜就有。支持將文件指派給特定職務進行學習確認。</p>
+        <p>BBP 知識庫就像公司的專屬圖書館，用於儲存、管理並分配內部規章文件與培訓資料，讓經驗可以被傳承。</p>
+        <ul>
+            <li><strong>資料不難找：</strong> 文件統一管理，一搜就有，不必在各群組翻箱倒櫃。</li>
+            <li><strong>新人快上手：</strong> 系統可按職務指派必讀資料，到職該學什麼一目了然。</li>
+            <li><strong>進度看得見：</strong> 可查看學習狀態，確保重要規範確實傳達到位。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="kb_overview.png" alt="知識庫運作邏輯示意"></div>
     </section>
 
     <section id="kb-create" class="card">
         <h3>■ 規章建立與發布</h3>
-        <p>規章建立三部曲與知識庫資料夾 / 新增文件畫面：</p>
+        <p>建立規章前建議先建好資料夾分類（像先有書架，文件才有地方放）。</p>
+        <ul>
+            <li><strong>1. 建分類：</strong> 先在【知識庫】建立資料夾（如：規章、職務說明）。</li>
+            <li><strong>2. 寫內容：</strong> 進入資料夾點擊「新增文件」，取個清楚的名稱並寫下內容重點。</li>
+            <li><strong>3. 按發布：</strong> 確認內容無誤後點擊「發布」。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="kb_create_doc_A.png" alt="規章建立三部曲圖解"></div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="kb_create_doc_B.png" alt="知識庫資料夾與新增"></div>
     </section>
 
     <section id="kb-study" class="card">
         <h3>■ 指派學習與確認</h3>
-        <p>指定學習彈窗與學習狀態名單（已學習 / 待學習）：</p>
+        <p>知識庫的特色在於能將文件「指派」給特定職務或對象，並追蹤完成狀態。</p>
+        <ul>
+            <li><strong>指定學習：</strong> 在資料夾或文件中，點擊文件右側【指定學習】按鈕，依組織圖/職務選取目標部門或個別員工，點擊「儲存」後系統會自動通知。</li>
+            <li><strong>學習確認：</strong> 員工可至知識庫【待學習】標籤查看指派內容，研讀後點選【學習】完成確認。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="kb_assign_study_A.png" alt="指定學習彈窗設定"></div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="kb_assign_study_B.png" alt="學習狀態名單"></div>
     </section>
 
     <section id="dash-summary" class="card">
         <h3>2.4 儀表板 — 數據真相</h3>
-        <p>執行數據自動變圖表。打造專屬畫面，把最重要資訊放在最前面。</p>
+        <p>儀表板是集中顯示工作進度與統計數據的工具。透過指標組合與視覺化，管理者能一眼掌握企業運行狀況。</p>
+        <ul>
+            <li><strong>進度一目了然：</strong> 任務有沒有準時完成、專案進度到哪，看圖表就知道。</li>
+            <li><strong>打造專屬畫面：</strong> 依個人關注選擇想看的數據，把最重要資訊放在最前面。</li>
+            <li><strong>資訊對齊：</strong> 支援分享，讓團隊與主管在同一套數據基礎上溝通。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="dash_overview.png" alt="儀表板核心價值示意"></div>
     </section>
 
     <section id="dash-metric" class="card">
         <h3>■ 指標建立與設定</h3>
-        <p>指標建立兩種路徑與指標詳細設定視窗畫面：</p>
+        <p>指標（統計指標）是儀表板的基礎數據來源。先建立指標，才能放入儀表板查看。</p>
+        <ul>
+            <li><strong>建立路徑一（職務關聯）：</strong> 從【組織圖】進入特定職務，選擇【指標】並點擊「建立」。</li>
+            <li><strong>建立路徑二（快速建立）：</strong> 從【儀表板】進入，點擊左上方【建立】並選擇「指標」。</li>
+            <li><strong>最低限度設定：</strong> 指標名稱、負責職務與填寫者、填寫間隔（每日/每週/每月/每年）、圖表類型。</li>
+            <li><strong>更新操作：</strong> 於圖表點擊即可輸入數據並儲存。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="dash_metric_create_A.png" alt="指標建立兩種路徑"></div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="dash_metric_create_B.png" alt="指標詳細設定視窗"></div>
     </section>
 
     <section id="dash-share" class="card">
         <h3>■ 儀表板分享</h3>
-        <p>儀表板佈局建立介面與分享 / 權限設定示意：</p>
+        <p>建立好各項指標後，可建立儀表板整合檢視，並依需求分享給特定職務或部門。</p>
+        <ul>
+            <li><strong>建立儀表板：</strong> 於儀表板頁面點擊【建立】選擇「儀表板」，輸入名稱後，點擊「+」號選取要放入的統計指標。</li>
+            <li><strong>分享與權限：</strong> 建立後透過右上角選單進行「訪問權限設定」，依職務或部門新增分享對象。</li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="dash_board_build.png" alt="儀表板佈局建立介面"></div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="dash_share_setting.png" alt="分享與權限設定視窗"></div>
     </section>
@@ -315,20 +373,30 @@
     <section id="personal-config" class="card">
         <h2>第三部分：管理與技術維護</h2>
         <h3>■ 帳號安全與個人化設定</h3>
-        <p>建議每位使用者定期檢查帳號狀態。於「個人設定」修改頭像與密碼，保障企業數據安全。</p>
+        <p>建議每位使用者定期檢查帳號狀態，並完成個人化設定以提升協作辨識度。</p>
+        <ul>
+            <li><strong>安全：</strong> 於「個人設定」修改密碼，保障企業數據安全。</li>
+            <li><strong>個人化：</strong> 可修改頭像與顯示名稱，提升協作辨識。</li>
+            <li><strong>介面偏好：</strong> 如調整儀表板佈局，設定僅套用於個人視角，不影響他人。</li>
+        </ul>
     </section>
 
     <section id="troubleshooting" class="card">
         <h3>■ 常見疑難排解</h3>
         <ul>
             <li><strong>權限問題：</strong> 請確認「組織圖」中的職務指派是否正確。</li>
-            <li><strong>同步延遲：</strong> 嘗試重新整理網頁。</li>
+            <li><strong>網頁延遲 / 同步延遲：</strong> 請先確認網路連線，並嘗試重新整理頁面。</li>
         </ul>
     </section>
 
     <section id="support-res" class="card">
         <h3>■ 支援管道與資源</h3>
-        <p>若遇到系統錯誤（Bug）或帳號問題，請直接聯繫您的執行顧問或查閱知識庫教學文件。</p>
+        <p>若上述步驟仍無法解決您的問題，請透過以下管道尋求協助：</p>
+        <ul>
+            <li><strong>數位教學資源：</strong> 平台內知識庫提供多項功能操作文件，包含組織圖建立、任務指派、行事曆操作與指標設定，協助快速上手。</li>
+            <li><strong>影片教學庫：</strong> 依公司提供的 QR code / 教學入口前往觀看。</li>
+            <li><strong>技術支援聯繫：</strong> 若有系統錯誤（Bug）或帳號授權問題，請聯繫執行顧問。</li>
+        </ul>
     </section>
 
     <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer;">🖨️ 列印手冊</button>
