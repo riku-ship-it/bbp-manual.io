@@ -94,7 +94,7 @@
         <div class="nav-header active" onclick="toggleNavGroup(this)">第二部分：核心模組詳解</div>
         <div class="nav-sub show">
             <div class="sub-group">
-                <div class="sub-header active" onclick="toggleSubGroup(this)">2.1 組織圖 — 企業的骨架</div>
+                <div class="sub-header active" onclick="toggleSubGroup(this)">2.1 組織圖 — 企業骨架</div>
                 <div class="nav-inner show">
                     <a href="#org-summary">■ 模組功能總覽</a>
                     <a href="#org-add">■ 新增組織圖</a>
@@ -102,7 +102,7 @@
                 </div>
             </div>
             <div class="sub-group">
-                <div class="sub-header" onclick="toggleSubGroup(this)">2.2 任務 — 執行的動力</div>
+                <div class="sub-header" onclick="toggleSubGroup(this)">2.2 任務 — 執行動力</div>
                 <div class="nav-inner">
                     <a href="#task-summary">■ 模組功能總覽</a>
                     <a href="#task-create">■ 任務建立與多模式</a>
@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="sub-group">
-                <div class="sub-header" onclick="toggleSubGroup(this)">2.3 知識庫 — 企業的資產</div>
+                <div class="sub-header" onclick="toggleSubGroup(this)">2.3 知識庫 — 企業資產</div>
                 <div class="nav-inner">
                     <a href="#kb-summary">■ 模組功能總覽</a>
                     <a href="#kb-create">■ 規章建立與發布</a>
@@ -119,7 +119,7 @@
                 </div>
             </div>
             <div class="sub-group">
-                <div class="sub-header" onclick="toggleSubGroup(this)">2.4 儀表板 — 決策的導引</div>
+                <div class="sub-header" onclick="toggleSubGroup(this)">2.4 儀表板 — 數據真相</div>
                 <div class="nav-inner">
                     <a href="#dash-summary">■ 模組功能總覽</a>
                     <a href="#dash-metric">■ 指標建立與設定</a>
@@ -195,18 +195,53 @@
 
     <section id="org-add" class="card">
         <h3>■ 新增組織圖</h3>
+        <p>當企業需要針對不同事業體或新的組織架構進行規劃時，可透過此流程建立新版本的組織圖：</p>
+        <ul>
+            <li>開啟建立功能：點擊頁面左上角【下拉選單】 ➔ 選擇【+ 建立組織圖】。</li>
+            <li>輸入基本資訊：設定該組織圖的【名稱】與【說明】，點擊【建立】。</li>
+            <li>選擇建立模式：
+                <ul>
+                    <li>從頭開始建立：適合全新的組織規劃。</li>
+                    <li>經典版：套用系統預設的標準架構模板。</li>
+                </ul>
+            </li>
+            <li>即時切換：建立完成後，可透過左上角【下拉選單】在不同版本的組織圖間快速切換。</li>
+        </ul>
         <div class="video-container">
             <video width="100%" controls poster="org_add_4in1.png"><source src="org_tutorial.mp4" type="video/mp4"></video>
         </div>
-        <div class="tip-box">操作流程：左上角【下拉選單】➔【+ 建立組織圖】。</div>
+        <div class="tip-box">操作流程可參考下方圖解：依序完成「建立新圖」、「選擇模式」與「版本切換」。</div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="org_add_4in1.png" alt="新增組織圖步驟"></div>
+    </section>
+
+    <section id="org-edit" class="card">
+        <h3>■ 調整組織圖與進階設定</h3>
+        <p>BBP 採用「即時自動儲存」機制，操作者可以在編輯模式下直覺地調整企業架構，不需額外按儲存：</p>
+        <ul>
+            <li>進入編輯模式：點擊右上角【自訂視圖】 ➔ 開啟【編輯模式】開關。</li>
+            <li>增減職務節點：
+                <ul>
+                    <li>新增：點擊職務格子下方或右側的【+】號，即可長出「下層」或「同層」職務。</li>
+                    <li>刪除：點擊格子右上角【⚙】圖示 ➔ 選擇【刪除此職務】（僅支援從最下層職務開始刪除）。</li>
+                </ul>
+            </li>
+            <li>修改職務資訊：在編輯模式下，直接點擊職務格即可修改【職務名稱】、【產品】或【工作內容】。</li>
+            <li>進階設定：點擊任一職務格子右上角【⚙】，可在彈出視窗中設定：
+                <ul>
+                    <li>職員管理：指派該職務的負責人。</li>
+                    <li>權限設定：定義該職務在系統內的權限範圍。</li>
+                    <li>例行任務：此職位必須定期執行的任務。</li>
+                    <li>指標數據：設定該職務需追蹤的指標。</li>
+                </ul>
+            </li>
+        </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="org_edit_mode.png" alt="編輯模式操作說明"></div>
         <div class="full-img-box" onclick="openZoom(this)"><img src="org_advanced_settings.png" alt="職務內容與進階設定"></div>
     </section>
 
     <section id="task-summary" class="card">
-        <h3>2.2 任務 — 執行的動力</h3>
-        <p>包含任務建立、行事曆同步與週計畫審核。主管可隨時管理下屬進度並給予協助。</p>
+        <h3>2.2 任務 — 執行動力</h3>
+        <p>包含任務建立、行事曆同步與週計畫審核。主管可隨時監督下屬進度並給予協助。</p>
         <div class="full-img-box" onclick="openZoom(this)"><img src="task_summary.png" alt="任務功能總覽心智圖"></div>
     </section>
 
@@ -238,7 +273,7 @@
     </section>
 
     <section id="kb-summary" class="card">
-        <h3>2.3 知識庫 — 企業的資產</h3>
+        <h3>2.3 知識庫 — 企業資產</h3>
         <p>資料不難找，文件統一管理一搜就有。支持將文件指派給特定職務進行學習確認。</p>
         <div class="full-img-box" onclick="openZoom(this)"><img src="kb_overview.png" alt="知識庫運作邏輯示意"></div>
     </section>
@@ -258,7 +293,7 @@
     </section>
 
     <section id="dash-summary" class="card">
-        <h3>2.4 儀表板 — 決策的導引</h3>
+        <h3>2.4 儀表板 — 數據真相</h3>
         <p>執行數據自動變圖表。打造專屬畫面，把最重要資訊放在最前面。</p>
         <div class="full-img-box" onclick="openZoom(this)"><img src="dash_overview.png" alt="儀表板核心價值示意"></div>
     </section>
