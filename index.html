@@ -1,1042 +1,332 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BBP 操作教學手冊</title>
-  <link rel="icon" href="favicon.png" type="image/png" />
-  <style>
-    :root {
-      --main: #4169e1;
-      --accent: #ff9800;
-      --bg: #f5f7fb;
-      --text-main: #1f2933;
-      --text-sub: #52606d;
-      --border: #e4e7eb;
-      --sidebar-w: 280px;
-      --sidebar-bg: #111827;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "PingFang TC",
-        "Microsoft JhengHei", sans-serif;
-      background: var(--bg);
-      color: var(--text-main);
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* 側邊導覽 */
-    .sidebar {
-      position: fixed;
-      inset: 0 auto 0 0;
-      width: var(--sidebar-w);
-      background: var(--sidebar-bg);
-      color: #e5e7eb;
-      padding: 70px 14px 16px;
-      overflow-y: auto;
-      z-index: 20;
-      transform: translateX(0);
-      transition: transform 0.25s ease;
-    }
-
-    .sidebar.collapsed {
-      transform: translateX(-100%);
-    }
-
-    .logo-area {
-      position: fixed;
-      left: 16px;
-      top: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #e5e7eb;
-      z-index: 25;
-      pointer-events: none;
-    }
-
-    .logo-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--main), var(--accent));
-    }
-
-    .logo-text {
-      font-size: 13px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      opacity: 0.8;
-    }
-
-    .nav-section-title {
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #9ca3af;
-      margin: 10px 4px 6px;
-    }
-
-    .nav-group {
-      margin-bottom: 4px;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .nav-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      background: rgba(31, 41, 55, 0.9);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      color: #f9fafb;
-      border-radius: 10px;
-      transition: background 0.18s ease;
-    }
-
-    .nav-header span {
-      flex: 1;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    .nav-header:hover {
-      background: rgba(55, 65, 81, 0.95);
-    }
-
-    .nav-header::after {
-      content: "▾";
-      font-size: 10px;
-      margin-left: 6px;
-      color: var(--accent);
-      transition: transform 0.18s ease;
-    }
-
-    .nav-header.active::after {
-      transform: rotate(180deg);
-    }
-
-    .nav-sub {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.25s ease;
-      padding-left: 2px;
-    }
-
-    .nav-sub.show {
-      max-height: 1200px;
-    }
-
-    .sub-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 12px;
-      font-size: 12px;
-      color: #d1d5db;
-      cursor: pointer;
-      border-radius: 8px;
-      margin: 4px 2px;
-    }
-
-    .sub-header:hover {
-      background: rgba(55, 65, 81, 0.6);
-      color: #f9fafb;
-    }
-
-    .sub-header::after {
-      content: "▸";
-      font-size: 10px;
-      margin-left: 4px;
-      transition: transform 0.18s ease;
-    }
-
-    .sub-header.active::after {
-      transform: rotate(90deg);
-    }
-
-    .nav-inner {
-      max-height: 0;
-      overflow: hidden;
-      padding-left: 6px;
-      transition: max-height 0.22s ease;
-    }
-
-    .nav-inner.show {
-      max-height: 600px;
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 6px 12px;
-      margin: 1px 2px;
-      font-size: 12px;
-      color: #9ca3af;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: all 0.16s ease;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    .sidebar a:hover {
-      color: var(--accent);
-      background: rgba(55, 65, 81, 0.55);
-      transform: translateX(4px);
-    }
-
-    /* 主要內容區 */
-    .main {
-      margin-left: var(--sidebar-w);
-      flex: 1;
-      padding: 32px 32px 56px;
-      transition: margin-left 0.25s ease;
-    }
-
-    .main.expanded {
-      margin-left: 0;
-      padding-top: 70px;
-    }
-
-    .hero {
-      background: radial-gradient(circle at top left, #e3ebff, #f8fafc);
-      border-radius: 24px;
-      padding: 32px 28px;
-      margin-bottom: 28px;
-      border: 1px solid #dde4ff;
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.6fr);
-      gap: 16px;
-      align-items: center;
-    }
-
-    .hero-title {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      color: #111827;
-      margin-bottom: 6px;
-    }
-
-    .hero-sub {
-      font-size: 14px;
-      color: var(--text-sub);
-      margin-bottom: 16px;
-    }
-
-    .hero-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .chip {
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(65, 105, 225, 0.25);
-      background: white;
-      color: #1f2937;
-    }
-
-    .hero-badge {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #6b7280;
-      margin-bottom: 6px;
-    }
-
-    .hero-box {
-      border-radius: 18px;
-      border: 1px dashed rgba(65, 105, 225, 0.5);
-      background: white;
-      padding: 14px 16px;
-      font-size: 12px;
-      color: var(--text-sub);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .hero-box-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .hero-tag {
-      font-weight: 600;
-      color: var(--main);
-      font-size: 12px;
-    }
-
-    .section-card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 26px 24px 24px;
-      margin-bottom: 22px;
-      border: 1px solid var(--border);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.03);
-    }
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 650;
-      color: var(--main);
-      border-bottom: 1px solid #edf2ff;
-      padding-bottom: 10px;
-      margin: 0 0 12px;
-    }
-
-    .section-subtitle {
-      margin-top: 20px;
-      margin-bottom: 10px;
-      padding-left: 10px;
-      border-left: 4px solid var(--accent);
-      font-size: 15px;
-      color: #111827;
-      font-weight: 600;
-    }
-
-    p {
-      font-size: 14.5px;
-      line-height: 1.8;
-      color: var(--text-sub);
-      margin: 6px 0 10px;
-    }
-
-    ul {
-      margin: 6px 0 10px 20px;
-      padding: 0;
-    }
-
-    li {
-      font-size: 14.5px;
-      line-height: 1.8;
-      color: var(--text-sub);
-      margin-bottom: 4px;
-    }
-
-    a.inline-link {
-      color: var(--main);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(65, 105, 225, 0.3);
-    }
-
-    a.inline-link:hover {
-      border-color: rgba(65, 105, 225, 0.8);
-    }
-
-    .pill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .pill {
-      font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: #f3f4ff;
-      color: #4b5bb3;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .thumb {
-      background: #f9fafb;
-      border-radius: 14px;
-      padding: 8px;
-      border: 1px solid #e5e7eb;
-      text-align: center;
-      cursor: zoom-in;
-    }
-
-    .thumb img {
-      display: block;
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .thumb label {
-      display: block;
-      font-size: 11px;
-      color: #6b7280;
-      margin-top: 4px;
-    }
-
-    .tip-box {
-      margin-top: 12px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: #f1f5ff;
-      border-left: 4px solid var(--main);
-      font-size: 13px;
-      color: #374151;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: #eef2ff;
-      color: #4b5bb3;
-      font-size: 11px;
-      margin-bottom: 4px;
-    }
-
-    .video-container {
-      margin-top: 10px;
-      border-radius: 16px;
-      border: 1px solid #e5e7eb;
-      overflow: hidden;
-      background: #0b1220;
-    }
-
-    .video-container video {
-      width: 100%;
-      display: block;
-    }
-
-    .faq-item {
-      border-radius: 14px;
-      padding: 10px 12px;
-      border: 1px solid #e5e7eb;
-      margin-bottom: 8px;
-      background: #f9fafb;
-      font-size: 14px;
-    }
-
-    .faq-item strong {
-      color: #111827;
-    }
-
-    .print-btn {
-      position: fixed;
-      right: 26px;
-      bottom: 26px;
-      border-radius: 999px;
-      padding: 10px 20px;
-      border: none;
-      background: var(--accent);
-      color: #111827;
-      font-weight: 600;
-      font-size: 13px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(148, 92, 0, 0.3);
-      z-index: 30;
-    }
-
-    .print-btn span {
-      font-size: 15px;
-    }
-
-    .toggle-btn {
-      position: fixed;
-      left: 16px;
-      top: 16px;
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: none;
-      background: #111827;
-      color: #f9fafb;
-      font-size: 20px;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 30;
-    }
-
-    /* lightbox */
-    #lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.96);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 40;
-      cursor: zoom-out;
-    }
-
-    #lightbox img {
-      max-width: 90vw;
-      max-height: 90vh;
-      border-radius: 8px;
-      border: 3px solid white;
-    }
-
-    /* 響應式 */
-    @media (max-width: 960px) {
-      .toggle-btn {
-        display: flex;
-      }
-
-      .sidebar {
-        transform: translateX(-100%);
-        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.5);
-      }
-
-      .sidebar.open {
-        transform: translateX(0);
-      }
-
-      .main {
-        margin-left: 0;
-        padding: 78px 16px 40px;
-      }
-
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-        padding: 22px 18px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .grid-3 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media print {
-      .sidebar,
-      .toggle-btn,
-      .print-btn {
-        display: none !important;
-      }
-
-      body {
-        display: block;
-      }
-
-      .main {
-        margin-left: 0;
-        padding: 0;
-      }
-
-      .section-card {
-        box-shadow: none;
-        border-radius: 0;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBP 操作教學手冊</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        :root { 
+            --main: #4a6cf7; 
+            --sub: #ff9800; 
+            --bg: #fcfdfe; 
+            --sidebar-w: 300px; 
+            --sidebar-dark: #1e293b;
+        }
+        
+        body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; margin: 0; background: var(--bg); display: flex; transition: 0.3s; }
+        
+        /* 側邊導覽 */
+        .sidebar { 
+            width: var(--sidebar-w); background: var(--sidebar-dark); height: 100vh; position: fixed; 
+            color: white; box-sizing: border-box; overflow-y: auto; z-index: 1000; 
+            transition: transform 0.3s ease; padding: 80px 10px 20px 10px;
+        }
+        .sidebar.collapsed { transform: translateX(-100%); }
+
+        /* 📁 三層級導覽樣式 */
+        .nav-group { margin-bottom: 5px; }
+        .nav-header { 
+            display: flex; justify-content: space-between; align-items: center; padding: 12px 15px;
+            background: #2d3a4f; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; color: #fff; transition: 0.3s;
+        }
+        .nav-header:hover { background: #3d4d66; }
+        .nav-header::after { content: '▼'; font-size: 10px; transition: 0.3s; color: var(--sub); }
+        .nav-header.active::after { transform: rotate(180deg); }
+
+        .nav-sub { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding-left: 5px; }
+        .nav-sub.show { max-height: 2500px; }
+
+        .sub-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 15px; color: #cbd5e1; cursor: pointer; font-size: 14px; border-radius: 6px; margin-top: 5px;
+        }
+        .sub-header:hover { color: white; background: rgba(255,255,255,0.05); }
+        .sub-header::after { content: '▶'; font-size: 8px; transition: 0.3s; }
+        .sub-header.active::after { transform: rotate(90deg); }
+
+        .nav-inner { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 15px; }
+        .nav-inner.show { max-height: 600px; }
+
+        .sidebar a { display: block; color: #94a3b8; text-decoration: none; padding: 8px 15px; border-radius: 5px; margin: 2px 0; transition: 0.2s; font-size: 13px; }
+        .sidebar a:hover { color: var(--sub); transform: translateX(5px); }
+
+        /* 內容區域 */
+        .main-content { margin-left: var(--sidebar-w); flex: 1; padding: 40px; box-sizing: border-box; transition: margin-left 0.3s ease; }
+        .main-content.expanded { margin-left: 0; padding-top: 80px; }
+        header { background: linear-gradient(120deg, var(--main), #6a85f1); color: white; padding: 60px; border-radius: 24px; text-align: center; margin-bottom: 40px; }
+        .card { background: white; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; }
+        h2 { color: var(--main); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
+        h3 { color: #334155; margin-top: 30px; border-left: 5px solid var(--sub); padding-left: 15px; }
+        p, li { line-height: 1.8; color: #444; font-size: 16px; }
+
+        .full-img-box, .video-container { text-align: center; margin: 30px 0; }
+        .full-img-box img, .video-container video { width: 100%; max-width: 850px; border-radius: 15px; border: 1px solid #e2e8f0; cursor: zoom-in; }
+        .tip-box { background: #f0f4ff; padding: 20px; border-radius: 12px; border-left: 6px solid var(--main); margin: 25px 0; }
+
+        .toggle-btn { position: fixed; left: 15px; top: 15px; background: var(--main); color: white; border: none; width: 45px; height: 45px; border-radius: 10px; cursor: pointer; z-index: 1100; font-size: 22px; display: flex; align-items: center; justify-content: center; }
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; }
+        #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid white; border-radius: 4px; }
+
+        @media print {
+            .sidebar, .toggle-btn, .video-container { display: none !important; }
+            .main-content { margin-left: 0 !important; }
+        }
+    </style>
 </head>
 <body>
-  <!-- 側邊導覽 -->
-  <div class="sidebar" id="sidebar">
-    <div class="nav-section-title">內容大綱</div>
 
+<button class="toggle-btn no-print" onclick="toggleSidebar()">☰</button>
+
+<nav class="sidebar" id="mySidebar">
     <div class="nav-group">
-      <div class="nav-header active" onclick="toggleNavGroup(this)">
-        <span>第一部分：平台概觀</span>
-      </div>
-      <div class="nav-sub show">
-        <a href="#intro">BBP 定義與理念</a>
-        <a href="#login">登入準備與環境建議</a>
-        <a href="#lang">介面語言設定</a>
-        <a href="#logic">核心運作邏輯</a>
-        <a href="#quick-nav">介面快速導覽</a>
-      </div>
+        <div class="nav-header active" onclick="toggleNavGroup(this)">第一部分：平台概觀</div>
+        <div class="nav-sub show">
+            <a href="#intro">BBP 定義與理念</a>
+            <a href="#login">登入準備與環境建議</a>
+            <a href="#lang">介面語言設定</a>
+            <a href="#logic">核心運作邏輯</a>
+            <a href="#quick-nav">介面快速導覽</a>
+        </div>
     </div>
 
     <div class="nav-group">
-      <div class="nav-header active" onclick="toggleNavGroup(this)">
-        <span>第二部分：核心模組</span>
-      </div>
-      <div class="nav-sub show">
-        <div class="sub-header active" onclick="toggleSubGroup(this)">
-          2.1 組織圖 — 企業骨架
-        </div>
-        <div class="nav-inner show">
-          <a href="#org-summary">模組功能總覽</a>
-          <a href="#org-add">新增組織圖</a>
-          <a href="#org-edit">調整組織圖</a>
-        </div>
-
-        <div class="sub-header" onclick="toggleSubGroup(this)">
-          2.2 任務 — 執行動力
-        </div>
-        <div class="nav-inner">
-          <a href="#task-summary">模組功能總覽</a>
-          <a href="#task-create">任務建立與多模式</a>
-          <a href="#task-audit">週計畫審核機制</a>
-          <a href="#task-google">Google 行事曆連動</a>
-        </div>
-
-        <div class="sub-header" onclick="toggleSubGroup(this)">
-          2.3 知識庫 — 企業資產
-        </div>
-        <div class="nav-inner">
-          <a href="#kb-summary">模組功能總覽</a>
-          <a href="#kb-create">規章建立與發布</a>
-          <a href="#kb-study">指派學習與確認</a>
-        </div>
-
-        <div class="sub-header" onclick="toggleSubGroup(this)">
-          2.4 儀表板 — 數據真相
-        </div>
-        <div class="nav-inner">
-          <a href="#dash-summary">模組功能總覽</a>
-          <a href="#dash-metric">指標建立與設定</a>
-          <a href="#dash-share">儀表板建立與分享</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="nav-group">
-      <div class="nav-header active" onclick="toggleNavGroup(this)">
-        <span>第三部分：管理與維護</span>
-      </div>
-      <div class="nav-sub show">
-        <a href="#personal-config">帳號安全與個人化</a>
-        <a href="#troubleshooting">常見疑難排解</a>
-        <a href="#support-res">支援管道與資源</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 內容區 -->
-  <main class="main" id="main">
-    <div class="logo-area">
-      <div class="logo-dot"></div>
-      <div class="logo-text">BBP 教學手冊</div>
-    </div>
-
-    <button class="toggle-btn" type="button" onclick="toggleSidebar()">☰</button>
-
-    <section class="hero">
-      <div>
-        <div class="hero-badge">BBP 操作教學手冊</div>
-        <h1 class="hero-title">Business Booster Platform</h1>
-        <p class="hero-sub">
-          幫助企業把「組織架構」與「每日工作」串起來的數位大腦，讓工作不瞎忙、經驗不流失。
-        </p>
-        <div class="hero-chips">
-          <span class="chip">組織圖 · 任務 · 知識庫 · 儀表板</span>
-          <span class="chip">適合新進同仁與管理者</span>
-        </div>
-      </div>
-      <div>
-        <div class="hero-box">
-          <div class="hero-box-row">
-            <div>
-              <div class="hero-tag">快速開始</div>
-              <p>先完整看過第一部分，再依照你使用的模組，跳到對應章節即可。</p>
+        <div class="nav-header active" onclick="toggleNavGroup(this)">第二部分：核心模組詳解</div>
+        <div class="nav-sub show">
+            <div class="sub-group">
+                <div class="sub-header active" onclick="toggleSubGroup(this)">2.1 組織圖 — 企業骨架</div>
+                <div class="nav-inner show">
+                    <a href="#org-summary">■ 模組功能總覽</a>
+                    <a href="#org-add">■ 新增組織圖</a>
+                    <a href="#org-edit">■ 調整組織圖</a>
+                </div>
             </div>
-          </div>
-          <div class="hero-box-row">
-            <div>
-              <div class="hero-tag">閱讀貼心設計</div>
-              <p>每一頁都控制在短篇幅搭配截圖，小段落 + 空白，不會被大段文字壓垮。</p>
+            <div class="sub-group">
+                <div class="sub-header" onclick="toggleSubGroup(this)">2.2 任務 — 執行動力</div>
+                <div class="nav-inner">
+                    <a href="#task-summary">■ 模組功能總覽</a>
+                    <a href="#task-create">■ 任務建立與多模式</a>
+                    <a href="#task-audit">■ 週計畫審核機制</a>
+                    <a href="#task-google">■ Google行事曆連動</a>
+                </div>
             </div>
-          </div>
+            <div class="sub-group">
+                <div class="sub-header" onclick="toggleSubGroup(this)">2.3 知識庫 — 企業資產</div>
+                <div class="nav-inner">
+                    <a href="#kb-summary">■ 模組功能總覽</a>
+                    <a href="#kb-create">■ 規章建立與發布</a>
+                    <a href="#kb-study">■ 指派學習與確認</a>
+                </div>
+            </div>
+            <div class="sub-group">
+                <div class="sub-header" onclick="toggleSubGroup(this)">2.4 儀表板 — 數據真相</div>
+                <div class="nav-inner">
+                    <a href="#dash-summary">■ 模組功能總覽</a>
+                    <a href="#dash-metric">■ 指標建立與設定</a>
+                    <a href="#dash-share">■ 儀表板分享</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- 第一部分 -->
-    <section id="intro" class="section-card">
-      <h2 class="section-title">第一部分：平台概觀與核心價值</h2>
-
-      <h3 class="section-subtitle">BBP 定義與理念</h3>
-      <p>
-        BBP 是企業營運的「<strong>數位大腦</strong>」，把
-        <strong>組織架構</strong>、<strong>每日任務</strong>、
-        <strong>知識文件</strong> 與 <strong>管理數據</strong>
-        串在一起，讓管理進度一眼看穿。
-      </p>
-      <ul>
-        <li>
-          <strong>工作不瞎忙：</strong> 系統幫你記、幫你排，把精力留給真正有產值的事。
-        </li>
-        <li>
-          <strong>經驗不流失：</strong>
-          即使有人請假或離職，做事方法（SOP）都留在平台，新人也能快速接上。
-        </li>
-      </ul>
-    </section>
-
-    <section id="login" class="section-card">
-      <h3 class="section-subtitle">登入準備與環境建議</h3>
-      <p>
-        建議使用最新版 Chrome 或 Edge 瀏覽器，連線穩定的網路環境下操作，體驗最佳。
-      </p>
-      <p>
-        <strong>登入網址：</strong>
-        <a class="inline-link" href="https://my.bbooster.io/login" target="_blank"
-          >https://my.bbooster.io/login</a
-        >
-      </p>
-      <ul>
-        <li>
-          <strong>帳號資訊：</strong> 使用顧問為你開通的公司信箱登入。
-        </li>
-        <li>
-          <strong>首次登入：</strong> 建議立即於「個人設定」修改預設密碼。
-        </li>
-        <li>
-          <strong>忘記密碼：</strong> 可透過登入頁下方「忘記密碼」重新設定。
-        </li>
-      </ul>
-
-      <div class="tip-box">
-        小提醒：若你長時間未使用，帳號可能會被自動登出，重新登入即可繼續操作。
-      </div>
-    </section>
-
-    <section id="lang" class="section-card">
-      <h3 class="section-subtitle">介面語言設定</h3>
-      <p>
-        BBP 會依瀏覽器環境自動選擇語言。若需手動切換，可依以下步驟調整：
-      </p>
-      <ul>
-        <li>點擊畫面右上角「⚙ 設定」。</li>
-        <li>找到「Language / 語言」欄位。</li>
-        <li>從清單中選擇「繁體中文」，畫面會立即切換。</li>
-      </ul>
-    </section>
-
-    <section id="logic" class="section-card">
-      <h3 class="section-subtitle">核心運作邏輯：四個模組形成循環</h3>
-      <p>
-        BBP 主要由四個模組組成，形成一個完整的管理循環：
-      </p>
-      <ul>
-        <li><strong>組織圖：</strong> 定好誰負責什麼，所有工作從這裡開始。</li>
-        <li><strong>任務：</strong> 把每日工作排進任務與週計畫，確保確實執行。</li>
-        <li><strong>知識庫：</strong> 把做事的方法與規章存起來，新人也看得懂。</li>
-        <li><strong>儀表板：</strong> 把執行結果變成圖表，讓管理者用數據做決策。</li>
-      </ul>
-
-      <div class="pill-list">
-        <span class="pill">組織圖 → 任務 → 知識庫 → 儀表板</span>
-      </div>
-    </section>
-
-    <section id="quick-nav" class="section-card">
-      <h3 class="section-subtitle">介面快速導覽</h3>
-      <p>登入後，介面大致分為三個主要區域：</p>
-      <div class="grid-3">
-        <div class="thumb" onclick="openZoom('nav_left.png')">
-          <img src="nav_left.png" alt="左側功能列" />
-          <label>A. 左側功能列</label>
+    <div class="nav-group">
+        <div class="nav-header active" onclick="toggleNavGroup(this)">第三部分：管理與技術維護</div>
+        <div class="nav-sub show">
+            <a href="#personal-config">帳號安全與個人化</a>
+            <a href="#troubleshooting">常見疑難排解</a>
+            <a href="#support-res">支援管道與資源</a>
         </div>
-        <div class="thumb" onclick="openZoom('nav_top.png')">
-          <img src="nav_top.png" alt="頂部工具列" />
-          <label>B. 頂部工具列</label>
+    </div>
+</nav>
+
+<div class="main-content" id="mainContent">
+    <header>
+        <h1>BBP 操作教學手冊</h1>
+        <p>Business Booster Platform — 企業全方位數位轉型解決方案</p>
+    </header>
+
+    <section id="intro" class="card">
+        <h2>第一部分：平台概觀與核心價值</h2>
+        <h3>■ BBP 定義與理念</h3>
+        <p>BBP 是企業數位化營運的「<strong>數位大腦</strong>」，幫我們把「組織架構」與「每日工作」串聯起來，讓管理進度一眼看穿。</p>
+        <ul>
+            <li><strong>工作不瞎忙：</strong> 讓系統幫你管雜事，把精力留給真正有產值的工作。</li>
+            <li><strong>經驗不流失：</strong> 做事方法（SOP）都留在系統裡，新人一秒上手。</li>
+        </ul>
+    </section>
+
+    <section id="login" class="card">
+        <h3>■ 登入準備與環境建議</h3>
+        <p>登入網址：<a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></p>
+        <ul>
+            <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入。</li>
+            <li><strong>忘記密碼：</strong> 若忘記密碼在登入頁面下方可以點選重新設定。</li>
+        </ul>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="login_1.png" alt="登入畫面"></div>
+    </section>
+
+    <section id="lang" class="card">
+        <h3>■ 介面語言設定</h3>
+        <p>BBP 預設會自動切換。若需手動調整：點擊右上角 [⚙️ 設定] ➔ 選擇 [Language / 語言] ➔ 選擇 [繁體中文]。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="lang_setting.png" alt="語系設定步驟"></div>
+    </section>
+
+    <section id="logic" class="card">
+        <h3>■ 核心運作邏輯</h3>
+        <p>平台循環：<strong>組織圖</strong> (基礎) ➔ <strong>任務</strong> (執行) ➔ <strong>知識庫</strong> (經驗) ➔ <strong>儀表板</strong> (數據)。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="intro_1.png" alt="核心邏輯圖"></div>
+    </section>
+
+    <section id="quick-nav" class="card">
+        <h3>■ 介面快速導覽</h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_A.png"><p style="font-size:12px;">A.左側選單</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_B.png"><p style="font-size:12px;">B.頂部列</p></div>
+            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_C.png"><p style="font-size:12px;">C.主區域</p></div>
         </div>
-        <div class="thumb" onclick="openZoom('nav_main.png')">
-          <img src="nav_main.png" alt="主工作區域" />
-          <label>C. 主工作區域</label>
+    </section>
+
+    <section id="org-summary" class="card">
+        <h2>第二部分：核心模組詳解</h2>
+        <h3>2.1 組織圖 — 企業的骨架</h3>
+        <p>BBP 組織圖是企業管理系統的核心基礎。具備數據看績效、定義具體成果 (VFP) 與 SOP 列出標準步驟等特點。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="org_summary.png" alt="組織圖概觀"></div>
+    </section>
+
+    <section id="org-add" class="card">
+        <h3>■ 新增組織圖</h3>
+        <div class="video-container">
+            <video width="100%" controls poster="org_add_4in1.png"><source src="org_tutorial.mp4" type="video/mp4"></video>
         </div>
-      </div>
+        <div class="tip-box">操作流程：左上角【下拉選單】➔【+ 建立組織圖】。</div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="org_add_4in1.png" alt="新增組織圖步驟"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="org_edit_mode.png" alt="編輯模式操作說明"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="org_advanced_settings.png" alt="職務內容與進階設定"></div>
     </section>
 
-    <!-- 第二部分：核心模組 -->
-    <section id="org-summary" class="section-card">
-      <h2 class="section-title">第二部分：核心模組詳解</h2>
-
-      <h3 class="section-subtitle">2.1 組織圖 — 企業的骨架</h3>
-      <p>
-        組織圖是整個 BBP 的基礎。與其說是「畫一張圖」，更像是把企業的
-        <strong>職務、責任、成果與指標</strong> 正式定義出來。
-      </p>
-      <ul>
-        <li><strong>數據看績效：</strong> 職務與儀表板連動，一眼看出部門狀態。</li>
-        <li><strong>具體成果 (VFP)：</strong> 為每個職務定義「最後要交付什麼」。</li>
-        <li><strong>工作內容與 SOP：</strong> 把每天要做的事與步驟寫清楚，新人快上手。</li>
-      </ul>
+    <section id="task-summary" class="card">
+        <h3>2.2 任務 — 執行動力</h3>
+        <p>包含任務建立、行事曆同步與週計畫審核。主管可隨時監督下屬進度並給予協助。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_summary.png" alt="任務功能總覽心智圖"></div>
     </section>
 
-    <section id="org-add" class="section-card">
-      <h3 class="section-subtitle">新增組織圖</h3>
-
-      <div class="badge">Step by step</div>
-      <p>當需要新增一個事業體或重構組織時，可依以下流程建立新版本：</p>
-      <ul>
-        <li>左上角組織圖名稱「下拉選單」 → 點選「＋ 建立組織圖」。</li>
-        <li>輸入這個組織圖的「名稱」與「說明」，點擊「建立」。</li>
-        <li>
-          選擇建立模式：
-          <ul>
-            <li>從頭建立：完全自訂，適合全新規劃。</li>
-            <li>經典版：套用系統預設模板，加快起步。</li>
-          </ul>
-        </li>
-        <li>建立後，可從左上角下拉清單在不同版本間切換。</li>
-      </ul>
-
-      <div class="video-container">
-        <video controls poster="org_add_poster.png">
-          <source src="org_tutorial.mp4" type="video/mp4" />
-          無法播放影片時，請下載檔案後觀看。
-        </video>
-      </div>
+    <section id="task-create" class="card">
+        <h3>■ 任務建立與多模式檢視</h3>
+        <p>以下畫面示範如何建立任務、切換三種模式以及查看管理視角：</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_create.png" alt="建立任務視窗"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_view_switch.png" alt="三種模式切換按鈕"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_card_detail_A.png" alt="管理視角與職務切換"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_card_detail_B.png" alt="看板階段流動示意"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_calendar_view_A.png" alt="行事曆介面功能標註"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_calendar_view_B.png" alt="行事曆工時統計"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_calendar_view_C.png" alt="行事曆拉長與調整操作"></div>
     </section>
 
-    <section id="org-edit" class="section-card">
-      <h3 class="section-subtitle">調整組織圖</h3>
-      <p>組織圖支援即時自動儲存，可用拖曳與點選方式直覺操作。</p>
-      <ul>
-        <li>切換到「編輯模式」後，即可新增、刪除或調整職務格。</li>
-        <li>點擊職務格右上角「⚙」可進行進階設定（職員、權限、例行任務、指標）。</li>
-        <li>系統會防呆：只能從最下層開始刪除節點，避免誤刪上層。</li>
-      </ul>
+    <section id="task-audit" class="card">
+        <h3>■ 週計畫審核機制</h3>
+        <p>週計畫的切換、對應指標、提交與主管審核畫面：</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_weekly_plan_A.png" alt="週計畫切換標籤"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_weekly_plan_B.png" alt="週計畫對應指標"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_weekly_plan_C.png" alt="週計畫提交核准按鈕"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_weekly_plan_D.png" alt="主管審核三步驟"></div>
     </section>
 
-    <section id="task-summary" class="section-card">
-      <h3 class="section-subtitle">2.2 任務 — 執行的動力</h3>
-      <p>
-        任務模組不只是待辦清單，而是把
-        <strong>指派、追蹤、檢視</strong>
-        整合在一起的工作引擎，確保公司目標落實到每天的行動。
-      </p>
-      <ul>
-        <li><strong>透明協作：</strong> 支援多位執行者與協作者（CC），資訊不遺漏。</li>
-        <li><strong>自動統計：</strong> 與行事曆連動，系統幫你累計每天工時與任務數。</li>
-        <li><strong>階層管理：</strong> 主管可切換視角，查看部屬任務進度。</li>
-      </ul>
+    <section id="task-google" class="card">
+        <h3>■ Google行事曆連動</h3>
+        <p>Google 行事曆連動設定與同步後的畫面示意：</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="task_google_sync.png" alt="Google 行事曆連動"></div>
     </section>
 
-    <section id="task-create" class="section-card">
-      <h3 class="section-subtitle">任務建立與多模式檢視</h3>
-      <p>建立任務時，建議至少填寫以下欄位：</p>
-      <ul>
-        <li><strong>任務名稱與預期結果：</strong> 一句話說清楚要完成什麼。</li>
-        <li>
-          <strong>角色指派：</strong>
-          建立者（1 人）、執行者（可多人）、協作者（可多人）。
-        </li>
-        <li>
-          <strong>時間設定：</strong>
-          開始日期、截止日期（未填開始日的任務不會顯示在行事曆）。
-        </li>
-      </ul>
-      <p>任務可以用三種視角檢視：</p>
-      <ul>
-        <li><strong>任務看板：</strong> 以「收件匣 → 已接受 → 進行中 → 已完成」呈現流程。</li>
-        <li><strong>行事曆：</strong> 以時間軸排列，可拖曳任務調整日期或工時長度。</li>
-        <li><strong>週計畫：</strong> 以週為單位，自動整理本週所有任務列表，方便審核。</li>
-      </ul>
+    <section id="kb-summary" class="card">
+        <h3>2.3 知識庫 — 企業資產</h3>
+        <p>資料不難找，文件統一管理一搜就有。支持將文件指派給特定職務進行學習確認。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="kb_overview.png" alt="知識庫運作邏輯示意"></div>
     </section>
 
-    <section id="task-audit" class="section-card">
-      <h3 class="section-subtitle">週計畫提交與主管審核機制</h3>
-      <p>週計畫是讓「主管與同仁目標對齊」的關鍵環節。</p>
-      <ul>
-        <li>
-          <strong>職員提交：</strong> 進入「週計畫」分頁，確認系統整理出的任務與工時無誤後，按「提交核准」，選擇核准者。
-        </li>
-        <li>
-          <strong>主管審核：</strong> 在「待核准」清單中，逐一檢查任務內容與時數。
-        </li>
-        <li>
-          <strong>核准 / 拒絕：</strong> 若安排合理則直接核准；若需調整可拒絕並在評論區給具體回饋。
-        </li>
-      </ul>
+    <section id="kb-create" class="card">
+        <h3>■ 規章建立與發布</h3>
+        <p>規章建立三部曲與知識庫資料夾 / 新增文件畫面：</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="kb_create_doc_A.png" alt="規章建立三部曲圖解"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="kb_create_doc_B.png" alt="知識庫資料夾與新增"></div>
     </section>
 
-    <section id="task-google" class="section-card">
-      <h3 class="section-subtitle">Google 行事曆連動</h3>
-      <p>把會議與行程與 BBP 串起來，可以少開很多分頁。</p>
-      <ul>
-        <li>Google 上的會議會自動出現在 BBP 行事曆中。</li>
-        <li>同步過來的行程會自動計入工時與週計畫。</li>
-        <li>綁定方式：到「設定 → 個人資料設定 → 整合」，連結 Google 帳號。</li>
-      </ul>
-      <div class="tip-box">一個 BBP 帳號目前僅能綁定一個 Google 帳戶。</div>
+    <section id="kb-study" class="card">
+        <h3>■ 指派學習與確認</h3>
+        <p>指定學習彈窗與學習狀態名單（已學習 / 待學習）：</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="kb_assign_study_A.png" alt="指定學習彈窗設定"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="kb_assign_study_B.png" alt="學習狀態名單"></div>
     </section>
 
-    <section id="kb-summary" class="section-card">
-      <h3 class="section-subtitle">2.3 知識庫 — 企業的資產</h3>
-      <p>
-        知識庫就像公司的內部圖書館，所有規章、教學、SOP
-        都在這裡好好被保存與分送。
-      </p>
-      <ul>
-        <li><strong>資料不難找：</strong> 文件集中管理，一搜就有。</li>
-        <li><strong>新人快上手：</strong> 系統會依職務推薦必讀文件。</li>
-        <li><strong>進度看得見：</strong> 可查看同仁是否已完成指定文件的閱讀確認。</li>
-      </ul>
+    <section id="dash-summary" class="card">
+        <h3>2.4 儀表板 — 數據真相</h3>
+        <p>執行數據自動變圖表。打造專屬畫面，把最重要資訊放在最前面。</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="dash_overview.png" alt="儀表板核心價值示意"></div>
     </section>
 
-    <section id="kb-create" class="section-card">
-      <h3 class="section-subtitle">建立規章：從分類到發布</h3>
-      <p>建議遵守「先分層，再寫內容」原則：</p>
-      <ul>
-        <li>先在知識庫中建立「資料夾」，例如：規章、職務說明、培訓教材。</li>
-        <li>進入資料夾後，「新增文件」，幫文件取清楚的名稱並撰寫重點內容。</li>
-        <li>確認無誤後按「發布」，文件才會正式對其他人開放。</li>
-      </ul>
+    <section id="dash-metric" class="card">
+        <h3>■ 指標建立與設定</h3>
+        <p>指標建立兩種路徑與指標詳細設定視窗畫面：</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="dash_metric_create_A.png" alt="指標建立兩種路徑"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="dash_metric_create_B.png" alt="指標詳細設定視窗"></div>
     </section>
 
-    <section id="kb-study" class="section-card">
-      <h3 class="section-subtitle">指派學習與閱讀確認</h3>
-      <p>BBP 的特色是可以把文件指派給特定職務或人員：</p>
-      <ul>
-        <li>在文件旁點選「指定學習」，從組織圖中選擇部門或個別員工。</li>
-        <li>被指派者登入後，可到「待學習」標籤查看需要閱讀的文件。</li>
-        <li>閱讀完畢後按「學習」，完成該文件的確認。</li>
-      </ul>
+    <section id="dash-share" class="card">
+        <h3>■ 儀表板分享</h3>
+        <p>儀表板佈局建立介面與分享 / 權限設定示意：</p>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="dash_board_build.png" alt="儀表板佈局建立介面"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="dash_share_setting.png" alt="分享與權限設定視窗"></div>
     </section>
 
-    <section id="dash-summary" class="section-card">
-      <h3 class="section-subtitle">2.4 儀表板 — 讓數據說真話</h3>
-      <p>
-        儀表板把各種指標集中呈現，讓管理層可以快速了解目前的運營情況。
-      </p>
-      <ul>
-        <li><strong>進度一目了然：</strong> 任務完成狀態、專案進度一看圖就懂。</li>
-        <li><strong>打造專屬畫面：</strong> 每位主管可以自己決定要看哪些圖表。</li>
-        <li><strong>資訊對齊：</strong> 儀表板可分享給對應部門，讓大家看同一套數據。</li>
-      </ul>
+    <section id="personal-config" class="card">
+        <h2>第三部分：管理與技術維護</h2>
+        <h3>■ 帳號安全與個人化設定</h3>
+        <p>建議每位使用者定期檢查帳號狀態。於「個人設定」修改頭像與密碼，保障企業數據安全。</p>
     </section>
 
-    <section id="dash-metric" class="section-card">
-      <h3 class="section-subtitle">指標建立與設定</h3>
-      <p>指標是儀表板用的「原料」，需要先建立指標，才能放進儀表板中。</p>
-      <ul>
-        <li>
-          <strong>建立路徑：</strong> 可從組織圖進入特定職務，點選「指標 → 建立」，或在儀表板點「建立 → 指標」。
-        </li>
-        <li>
-          <strong>基本欄位：</strong> 指標名稱、負責職務與填寫者、更新頻率（每日 / 每週 / 每月 / 每年）。
-        </li>
-        <li>
-          <strong>圖表類型：</strong> 線圖、長條圖、堆疊長條或組合圖，依管理需求選擇即可。
-        </li>
-      </ul>
+    <section id="troubleshooting" class="card">
+        <h3>■ 常見疑難排解</h3>
+        <ul>
+            <li><strong>權限問題：</strong> 請確認「組織圖」中的職務指派是否正確。</li>
+            <li><strong>同步延遲：</strong> 嘗試重新整理網頁。</li>
+        </ul>
     </section>
 
-    <section id="dash-share" class="section-card">
-      <h3 class="section-subtitle">儀表板建立與分享</h3>
-      <p>建立好指標後，就可以組成你自己的儀表板：</p>
-      <ul>
-        <li>在儀表板頁面點選「建立 → 儀表板」，輸入名稱。</li>
-        <li>使用「＋」加入想要顯示的指標圖表。</li>
-        <li>建立完成後，可透過右上角選單設定「訪問權限」，依部門或職務分享。</li>
-      </ul>
+    <section id="support-res" class="card">
+        <h3>■ 支援管道與資源</h3>
+        <p>若遇到系統錯誤（Bug）或帳號問題，請直接聯繫您的執行顧問或查閱知識庫教學文件。</p>
     </section>
 
-    <!-- 第三部分：管理與維護 -->
-    <section id="personal-config" class="section-card">
-      <h2 class="section-title">第三部分：管理與技術維護</h2>
+    <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer;">🖨️ 列印手冊</button>
+</div>
 
-      <h3 class="section-subtitle">帳號安全與個人化設定</h3>
-      <p>
-        為了保護公司資料安全，建議定期檢查以下項目：
-      </p>
-      <ul>
-        <li>是否已修改預設密碼，並定期更新。</li>
-        <li>登入裝置是否為個人電腦或可信任設備。</li>
-        <li>在個人設定中更新頭像與顯示名稱，方便同事辨識。</li>
-      </ul>
-    </section>
+<div id="lightbox" onclick="this.style.display='none'"><img id="zoom-img"></div>
 
-    <section id="troubleshooting" class="section-card">
-      <h3 class="section-subtitle">常見疑難排解</h3>
-      <div class="faq-item">
-        <strong>看不到某些模組或資料？</strong><br />
-        請先確認你在組織圖中的職務是否正確，被指派的職務權限會決定可見範圍。
-      </div>
-      <div class="faq-item">
-        <strong>畫面反應很慢或卡住？</strong><br />
-        請檢查網路連線狀態，並嘗試重新整理頁面。若持續發生可聯繫技術支援。
-      </div>
-    </section>
-
-    <section id="support-res" class="section-card">
-      <h3 class="section-subtitle">支援管道與多元資源</h3>
-      <ul>
-        <li>平台知識庫中有更多操作文件（組織圖、任務、行事曆、指標設定等）。</li>
-        <li>另有影片教學庫，可透過公司提供的 QR code 或連結觀看。</li>
-        <li>若遇到系統錯誤或帳號授權問題，請聯繫你的執行顧問或 IT 支援窗口。</li>
-      </ul>
-    </section>
-
-    <button class="print-btn" type="button" onclick="window.print()">
-      <span>🖨</span> 列印這份手冊
-    </button>
-  </main>
-
-  <!-- lightbox -->
-  <div id="lightbox" onclick="closeZoom()">
-    <img id="zoomImg" src="" alt="preview" />
-  </div>
-
-  <script>
+<script>
     function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const main = document.getElementById("main");
-      if (window.innerWidth <= 960) {
-        sidebar.classList.toggle("open");
-      } else {
-        sidebar.classList.toggle("collapsed");
-        main.classList.toggle("expanded");
-      }
+        const sidebar = document.getElementById('mySidebar');
+        const mainContent = document.getElementById('mainContent');
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
     }
-
     function toggleNavGroup(header) {
-      header.classList.toggle("active");
-      const sub = header.nextElementSibling;
-      sub.classList.toggle("show");
+        header.classList.toggle('active');
+        header.nextElementSibling.classList.toggle('show');
     }
-
     function toggleSubGroup(header) {
-      header.classList.toggle("active");
-      const inner = header.nextElementSibling;
-      inner.classList.toggle("show");
+        header.classList.toggle('active');
+        header.nextElementSibling.classList.toggle('show');
     }
-
-    document
-      .querySelectorAll(".sidebar a")
-      .forEach((link) =>
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const id = link.getAttribute("href");
-          const target = document.querySelector(id);
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-          if (window.innerWidth <= 960) {
-            document.getElementById("sidebar").classList.remove("open");
-          }
-        })
-      );
-
-    function openZoom(src) {
-      document.getElementById("zoomImg").src = src;
-      document.getElementById("lightbox").style.display = "flex";
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+    function openZoom(el) {
+        document.getElementById('zoom-img').src = el.querySelector('img').src;
+        document.getElementById('lightbox').style.display = 'flex';
     }
+</script>
 
-    function closeZoom() {
-      document.getElementById("lightbox").style.display = "none";
-    }
-  </script>
 </body>
 </html>
