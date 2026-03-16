@@ -38,7 +38,6 @@
         .nav-sub { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; padding-left: 5px; }
         .nav-sub.show { max-height: 2000px; }
 
-        /* 第二層：小節標題 (如 2.1) */
         .sub-header {
             display: flex; justify-content: space-between; align-items: center;
             padding: 10px 15px; color: #cbd5e1; cursor: pointer; font-size: 14px; border-radius: 6px; margin-top: 5px;
@@ -48,7 +47,7 @@
         .sub-header.active::after { transform: rotate(90deg); }
 
         .nav-inner { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 15px; }
-        .nav-inner.show { max-height: 500px; }
+        .nav-inner.show { max-height: 600px; }
 
         .sidebar a { 
             display: block; color: #94a3b8; text-decoration: none; padding: 8px 15px; 
@@ -65,13 +64,11 @@
         h3 { color: #334155; margin-top: 30px; border-left: 5px solid var(--sub); padding-left: 15px; }
         h4 { color: var(--main); margin-bottom: 10px; }
         p, li { line-height: 1.8; color: #444; font-size: 16px; }
-        strong { color: #2d3a4f; }
 
         .full-img-box, .video-container { text-align: center; margin: 30px 0; }
         .full-img-box img, .video-container video { width: 100%; max-width: 850px; border-radius: 15px; border: 1px solid #e2e8f0; cursor: zoom-in; transition: 0.4s; }
         .tip-box { background: #f0f4ff; padding: 20px; border-radius: 12px; border-left: 6px solid var(--main); margin: 25px 0; }
 
-        /* 按鈕與燈箱 */
         .toggle-btn { position: fixed; left: 15px; top: 15px; background: var(--main); color: white; border: none; width: 45px; height: 45px; border-radius: 10px; cursor: pointer; z-index: 1100; font-size: 22px; display: flex; align-items: center; justify-content: center; }
         #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; cursor: zoom-out; }
         #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid white; border-radius: 4px; }
@@ -137,203 +134,87 @@
             </div>
         </div>
     </div>
+
+    <div class="nav-group">
+        <div class="nav-header active" onclick="toggleNavGroup(this)">第三部分：管理與技術維護</div>
+        <div class="nav-sub show">
+            <a href="#personal-config">■ 帳號安全與個人化設定</a>
+            <a href="#troubleshooting">■ 常見疑難排解</a>
+            <a href="#support-res">■ 支援管道與多元資源</a>
+        </div>
+    </div>
 </nav>
 
 <div class="main-content" id="mainContent">
     <header>
         <h1>BBP 操作教學手冊</h1>
-        <p>Business Booster Platform — 企業數位化管理的一站式導航中心</p>
+        <p>Business Booster Platform — 企業全方位數位轉型解決方案</p>
     </header>
 
     <section id="intro" class="card">
         <h2>第一部分：平台概觀與核心價值</h2>
         <h3>■ BBP 定義與理念</h3>
-        <p>它是公司的「<strong>數位大腦</strong>」，幫我們把「組織架構」與「每日工作」串聯起來，讓管理進度一眼看穿 [cite: 5]。</p>
+        <p>它是公司的「<strong>數位大腦</strong>」，幫我們把「組織架構」與「每日工作」串聯起來，讓管理進度一眼看穿。</p>
         <ul>
-            <li><strong>工作不瞎忙：</strong> 讓系統幫你管雜事，把精力留給真正有產值的工作 [cite: 6]。</li>
-            <li><strong>經驗不流失：</strong> 無論誰請假或離職，做事方法（SOP）都留在系統裡，新人一秒上手 [cite: 7]。</li>
+            <li><strong>工作不瞎忙：</strong> 讓系統幫你管雜事，把精力留給真正有產值的工作。</li>
+            <li><strong>經驗不流失：</strong> 無論誰請假或離職，做事方法（SOP）都留在系統裡，新人一秒上手。</li>
         </ul>
     </section>
 
     <section id="login" class="card">
         <h3>■ 登入準備與環境建議</h3>
-        <p>為了確保最佳的操作體驗，請於開始前確認以下資訊 [cite: 9]：</p>
+        <p>為了確保最佳的操作體驗，請於開始前確認以下資訊：</p>
         <ul>
-            <li><strong>登入網址：</strong> <a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a> [cite: 10]</li>
-            <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入 [cite: 11]。</li>
-            <li><strong>安全提示：</strong> 首次登入後，建議立即於「個人設定」修改初始密碼 [cite: 12]。</li>
-            <li><strong>忘記密碼：</strong> 若忘記密碼在登入頁面下方可以點選重新設定 [cite: 13]。</li>
+            <li><strong>登入網址：</strong> <a href="https://my.bbooster.io/login" target="_blank">https://my.bbooster.io/login</a></li>
+            <li><strong>帳號資訊：</strong> 請使用執行顧問為您開通的電子郵件進行登入。</li>
+            <li><strong>安全提示：</strong> 首次登入後，建議立即於「個人設定」修改初始密碼。</li>
+            <li><strong>忘記密碼：</strong> 若忘記密碼在登入頁面下方可以點選重新設定。</li>
         </ul>
         <div class="full-img-box" onclick="openZoom(this)"><img src="login_1.png" alt="登入介面"></div>
-    </section>
-
-    <section id="lang" class="card">
-        <h3>■ 介面語言設定</h3>
-        <p>BBP 預設會根據系統環境自動切換。若需手動調整語系，請依以下步驟操作 [cite: 15]：</p>
-        <ol>
-            <li>點擊畫面右上角的 [⚙️ 設定] [cite: 16]。</li>
-            <li>尋找 [Language / 語言] 欄位 [cite: 17]。</li>
-            <li>於選單中選擇 [繁體中文] 即可即時切換 [cite: 18]。</li>
-        </ol>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="lang_setting.png" alt="語系設定"></div>
-    </section>
-
-    <section id="logic" class="card">
-        <h3>■ 核心運作邏輯</h3>
-        <p>平台依序由四個模組，形成管理循環 [cite: 20]：</p>
-        <ul>
-            <li><strong>組織圖：</strong> 定好誰負責什麼，所有工作從這裡開始 [cite: 21]。</li>
-            <li><strong>任務：</strong> 自己安排工作節奏，再透過「週計畫」跟主管對齊目標 [cite: 22]。</li>
-            <li><strong>知識庫：</strong> 把做事的好方法（SOP）存起來，讓經驗可以傳承 [cite: 23]。</li>
-            <li><strong>儀表板：</strong> 執行數據自動變圖表，讓主管看實話做決策 [cite: 24]。</li>
-        </ul>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="intro_1.png" alt="核心邏輯循環"></div>
-    </section>
-
-    <section id="quick-nav" class="card">
-        <h3>■ 介面快速導覽</h3>
-        <ul>
-            <li><strong>左側功能列：</strong> 一鍵切換組織圖、任務、知識庫或儀表板等功能 [cite: 26]。</li>
-            <li><strong>頂部工具列：</strong> 找通知、搜任務或修改個人設定 [cite: 27]。</li>
-            <li><strong>主工作區域：</strong> 所有操作與畫面都在這裡 [cite: 28]。</li>
-        </ul>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
-            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_A.png"><p style="font-size:12px;">A.左側選單</p></div>
-            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_B.png"><p style="font-size:12px;">B.頂部列</p></div>
-            <div class="full-img-box" onclick="openZoom(this)"><img src="nav_overview_C.png"><p style="font-size:12px;">C.主區域</p></div>
-        </div>
     </section>
 
     <section id="org-summary" class="card">
         <h2>第二部分：核心模組詳解</h2>
         <h3>2.1 組織圖 — 企業的骨架</h3>
-        <p>BBP 組織圖是企業管理系統的核心基礎。它不同於傳統 Excel 或靜態 PDF，它能讓整間公司的資訊活起來 [cite: 33]。</p>
+        <p>BBP 組織圖是企業管理系統的核心基礎。它不同於傳統 Excel 或靜態 PDF，它能讓整間公司的資訊活起來。</p>
         <ul>
-            <li><strong>數據看績效：</strong> 自動連結儀表板，即時掌握營運成效 [cite: 34]。</li>
-            <li><strong>具體成果 (VFP)：</strong> 定義職務的「最終成果」，讓團隊目標聚焦 [cite: 35]。</li>
-            <li><strong>工作內容與 SOP：</strong> 列出每天要做的事與標準步驟，縮短新人學習曲線 [cite: 36]。</li>
+            <li><strong>數據看績效：</strong> 自動連結儀表板，即時掌握營運成效。</li>
+            <li><strong>具體成果 (VFP)：</strong> 定義職務的「最終成果」，讓團隊目標聚焦。</li>
+            <li><strong>工作內容與 SOP：</strong> 列出每天要做的事與標準步驟，縮短新人學習曲線。</li>
         </ul>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="org_summary.png" alt="組織圖核心價值"></div>
+        <div class="full-img-box" onclick="openZoom(this)"><img src="org_summary.png" alt="組織圖概觀"></div>
     </section>
 
-    <section id="org-add" class="card">
-        <h3>■ 新增組織圖</h3>
-        <p>當企業需要針對不同事業體或新的組織架構進行規劃時，可透過此流程建立新版本 [cite: 38]。</p>
-        <div class="video-container">
-            <video width="100%" controls poster="org_add_4in1.png"><source src="org_tutorial.mp4" type="video/mp4"></video>
+    <section id="personal-config" class="card">
+        <h2>第三部分：管理與技術維護</h2>
+        <h3>■ 帳號安全與個人化設定</h3>
+        <p>為了保障企業數據安全，建議每位使用者定期檢查帳號狀態：</p>
+        <ul>
+            <li><strong>個人化：</strong> 於「個人設定」修改頭像與顯示名稱，強化團隊協作的辨識度。</li>
+            <li><strong>介面偏好：</strong> 如調整儀表板佈局等設定僅套用於個人視角，不影響他人。</li>
+        </ul>
+    </section>
+
+    <section id="troubleshooting" class="card">
+        <h3>■ 常見疑難排解</h3>
+        <p>當操作遇到障礙時，請先參考以下自我檢查清單：</p>
+        <ul>
+            <li><strong>權限問題：</strong> 若無法查看特定模組或數據，請確認「組織圖」中的職務指派是否正確。</li>
+            <li><strong>網頁延遲：</strong> 請確認網路連線狀況，或嘗試重新整理頁面執行手動刷新。</li>
+        </ul>
+    </section>
+
+    <section id="support-res" class="card">
+        <h3>■ 支援管道與多元資源</h3>
+        <p>若上述步驟仍無法解決您的問題，請透過以下管道尋求協助：</p>
+        <ul>
+            <li><strong>數位教學資源：</strong> 平台內知識庫存有多項操作文件，包含組織圖建立、任務指派等，協助您快速上手。</li>
+            <li><strong>技術支援聯繫：</strong> 若遇到系統錯誤（Bug）或帳號授權問題，請直接聯繫您的執行顧問。</li>
+        </ul>
+        <div class="print-qr">
+            <img src="qr_org_video.png" alt="掃描看影片">
+            <p><strong>🎥 掃描 QR Code 觀看更多動態教學影片</strong></p>
         </div>
-        <div class="tip-box">
-            <strong>操作流程 [cite: 39, 40]：</strong> 點擊左上角【下拉選單】➔【+ 建立組織圖】➔ 設定名稱與說明。
-        </div>
-        <p><strong>建立模式 [cite: 41]：</strong> 可選擇「從頭開始建立」或套用系統預設的「經典版」模板 [cite: 42, 43]。</p>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="org_add_4in1.png" alt="新增步驟圖解"></div>
-    </section>
-
-    <section id="org-edit" class="card">
-        <h3>■ 調整組織圖</h3>
-        <p>BBP 採用「即時自動儲存」機制，操作者可直覺地調整企業架構 [cite: 46]。</p>
-        <ul>
-            <li><strong>進入編輯：</strong> 點擊右上角【自訂視圖】➔ 開啟【編輯模式】開關 [cite: 47]。</li>
-            <li><strong>增減職務：</strong> 點擊格子旁【+】新增下層；點擊【⚙️】➔【刪除此功能】(僅限最下層) [cite: 49, 50]。</li>
-            <li><strong>功能進階設定：</strong> 點擊職務格子可配置負責人、權限範圍、例行任務與指標 [cite: 52, 53, 54, 55, 56]。</li>
-        </ul>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="org_edit_mode.png" alt="調整組織圖圖解"></div>
-    </section>
-
-    <section id="task-summary" class="card">
-        <h3>2.2 任務 — 執行的動力</h3>
-        <p>任務模組整合了指派機制、進度追蹤與多維度檢視，確保企業目標能落實到每日執行中 [cite: 59]。</p>
-        <ul>
-            <li><strong>透明協作：</strong> 支援多人負責與協作者（CC）機制 [cite: 60]。</li>
-            <li><strong>自動統計：</strong> 自動計算每日工時，作為週計畫基礎 [cite: 61]。</li>
-            <li><strong>階層管理：</strong> 主管可隨時監督下屬進度並給予協助 [cite: 62]。</li>
-        </ul>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="task_overview.png" alt="任務功能概覽"></div>
-    </section>
-
-    <section id="task-create" class="card">
-        <h3>■ 任務建立與多模式檢視</h3>
-        <p>點擊右上角【建立任務】，輸入明確名稱與預期結果，並指派负责人與時間 [cite: 65, 66, 67]。</p>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="task_create_ui.png" alt="建立任務介面"></div>
-        <h4>三種視角切換 [cite: 68]：</h4>
-        <ul>
-            <li><strong>任務看板：</strong> 直觀管理收件匣、進行中與已完成的工作流 [cite: 69]。</li>
-            <li><strong>行事曆：</strong> 以時間軸規劃排程，支援任務拖曳調整 [cite: 70]。</li>
-            <li><strong>週計畫：</strong> 以週為單位自動彙整任務清單 [cite: 71]。</li>
-        </ul>
-    </section>
-
-    <section id="task-audit" class="card">
-        <h3>■ 週計畫提交與主管審核機制</h3>
-        <p>週計畫是落實「工作對齊」的關鍵，透過審核機制確保任務安排符合公司方向 [cite: 73]。</p>
-        <ol>
-            <li><strong>職員提交：</strong> 檢查任務列表正確後，點擊右下方【提交核准】 [cite: 74, 75]。</li>
-            <li><strong>主管核准：</strong> 主管於【待核准】分頁檢視清單，可選擇【核准】或【拒絕】並給予回饋 [cite: 76, 77]。</li>
-        </ol>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="task_audit_steps.png" alt="審核流程圖"></div>
-    </section>
-
-    <section id="task-google" class="card">
-        <h3>■ Google 行事曆連動：行程不遺漏</h3>
-        <p>將 Google 行事曆接上 BBP，會議行程會自動出現在任務中並計入總工時 [cite: 79, 80, 81]。</p>
-        <div class="tip-box">
-            <strong>綁定路徑：</strong> 進入【設定】>【個人資料設定】>【整合】區塊點擊綁定 [cite: 82]。
-        </div>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="task_google_sync.png" alt="Google同步設定"></div>
-    </section>
-
-    <section id="kb-summary" class="card">
-        <h3>2.3 知識庫 — 企業的資產</h3>
-        <p>BBP 知識庫用於儲存、管理並分配規章文件與培訓資料，確保經驗傳承 [cite: 86]。</p>
-        <ul>
-            <li><strong>資料不難找：</strong> 文件統一管理，一搜就有 [cite: 87]。</li>
-            <li><strong>新人快上手：</strong> 系統按職務「送上」必讀資料 [cite: 88]。</li>
-            <li><strong>進度看得見：</strong> 視覺化掌握每個人的研讀狀況 [cite: 89]。</li>
-        </ul>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="kb_logic_flow.png" alt="知識庫運作邏輯"></div>
-    </section>
-
-    <section id="kb-create" class="card">
-        <h3>■ 建立規章：從分類到發布</h3>
-        <ol>
-            <li><strong>建分類：</strong> 先在【知識庫】建好資料夾（如：規章、職務說明） [cite: 92]。</li>
-            <li><strong>寫內容：</strong> 新增文件，取好名字並寫下重點 [cite: 93]。</li>
-            <li><strong>按發布：</strong> 確認無誤後點擊正式發布 [cite: 94]。</li>
-        </ol>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="kb_create_steps.png" alt="規章建立步驟"></div>
-    </section>
-
-    <section id="kb-study" class="card">
-        <h3>■ 指派學習與確認</h3>
-        <p>BBP 能將文件「指派」給特定職務，系統會自動通知被指派對象 [cite: 96, 100]。</p>
-        <ul>
-            <li><strong>指派對象：</strong> 點擊文件右側【指定學習】，依組織圖選取目標 [cite: 98, 99]。</li>
-            <li><strong>學習確認：</strong> 員工於【待學習】標籤研讀後點選【學習】按鈕即可完成 [cite: 102, 103]。</li>
-        </ul>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="kb_study_ui.png" alt="指派學習介面"></div>
-    </section>
-
-    <section id="dash-summary" class="card">
-        <h3>2.4 儀表板 — 讓數據說真話</h3>
-        <p>管理者能一眼掌握企業運行狀況，不再需要一個個去詢問進度 [cite: 106, 107]。</p>
-        <ul>
-            <li><strong>打造專屬畫面：</strong> 挑選想看的數據，把最重要資訊放在最前面 [cite: 108]。</li>
-            <li><strong>資訊對齊：</strong> 分享功能讓團隊在同一數據基礎上溝通 [cite: 109]。</li>
-        </ul>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="dash_overview.png" alt="儀表板視覺化"></div>
-    </section>
-
-    <section id="dash-metric" class="card">
-        <h3>■ 指標建立與設定</h3>
-        <p>指標是儀表板的基礎來源。可從組織圖職務進入建立，或從儀表板快速建立 [cite: 111, 113, 114]。</p>
-        <p><strong>核心設定：</strong> 定義名稱、負責人、填寫間隔與圖表類型 [cite: 116, 117, 118, 119]。</p>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="dash_metric_setting.png" alt="指標設定介面"></div>
-    </section>
-
-    <section id="dash-share" class="card">
-        <h3>■ 儀表板建立與分享</h3>
-        <p>建立儀表板後，點擊「+」選取統計指標，並透過選單設定「訪問權限」進行分享 [cite: 125, 127]。</p>
-        <div class="full-img-box" onclick="openZoom(this)"><img src="dash_share_ui.png" alt="分享設定圖解"></div>
     </section>
 
     <button class="no-print" onclick="window.print()" style="position:fixed; bottom:30px; right:30px; background:var(--sub); color:white; border:none; padding:15px 30px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">🖨️ 列印手冊</button>
@@ -354,7 +235,6 @@
         header.nextElementSibling.classList.toggle('show');
     }
 
-    // 新增：子層級收合邏輯
     function toggleSubGroup(header) {
         header.classList.toggle('active');
         header.nextElementSibling.classList.toggle('show');
